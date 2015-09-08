@@ -3,9 +3,6 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var __DEV__ = process.env.NODE_ENV !== 'production';
-console.log('**********************************');
-console.log(__DEV__ ? 'dev' : 'prod');
-console.log('**********************************');
 
 module.exports = {
     devtool: 'eval',

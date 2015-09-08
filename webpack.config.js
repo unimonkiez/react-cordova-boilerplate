@@ -24,11 +24,16 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Custom template',
             bodyContent: (function() {
-                require("babel/register");
-                var react = require('react');
-                var App = require('./src/containers/App.jsx');
-                var reactHtml = react.renderToString(react.createFactory(App)({}));
-                return reactHtml;
+                if (__DEV__) {
+                    return '';
+                } else {
+                    // Production
+                    require("babel/register");
+                    var react = require('react');
+                    var App = require('./src/containers/App.jsx');
+                    var reactHtml = react.renderToString(react.createFactory(App)({}));
+                    return reactHtml;
+                }
             })(),
             template: './src/index.html', // Load a custom template
             inject: 'body' // Inject all scripts into the body

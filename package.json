@@ -4,7 +4,7 @@
   "description": "TodoMVC example for react with development tools to build a cordova application",
   "scripts": {
     "start": "node server.js",
-    "build": "webpack",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",

@@ -10,11 +10,6 @@ const TODO_FILTERS = {
 };
 
 export default class MainSection extends Component {
-  static propTypes = {
-    todos: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
-  };
-
   constructor(props, context) {
     super(props, context);
     this.state = { filter: SHOW_ALL };
@@ -32,8 +27,8 @@ export default class MainSection extends Component {
   }
 
   render() {
-    const { todos, actions } = this.props;
     const { filter } = this.state;
+    const { todos, actions } = this.props;
 
     const filteredTodos = todos.filter(TODO_FILTERS[filter]);
     const markedCount = todos.reduce((count, todo) =>

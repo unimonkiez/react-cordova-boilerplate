@@ -8,7 +8,7 @@ import * as reducers from '../reducers';
 
 const finalCreateStore = compose(
   devTools(),
-  persistState(typeof window === 'oobject' && window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+  persistState(typeof window === 'object' && window.location.href.match(/[?&]debug_session=([^&]+)\b/))
 )(createStore);
 
 const reducer = combineReducers(reducers);
@@ -27,11 +27,11 @@ export default class App extends Component {
         <Provider store={store}>
           {() => <TodoApp /> }
         </Provider>
-        <DebugPanel top right bottom>
+        { __DEV__ && <DebugPanel top right bottom>
           <DevTools store={store}
                     monitor={LogMonitor}
                     visibleOnLoad={true} />
-        </DebugPanel>
+        </DebugPanel>}
       </div>
     );
   }

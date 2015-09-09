@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import TodoApp from './TodoApp.jsx';
 import { createStore, combineReducers, compose } from 'redux';
 import { devTools, persistState } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { Provider } from 'react-redux';
 import * as reducers from '../reducers';
+import Router, {Route} from 'react-router';
+
+import Loader from './Loader.jsx';
+import AppRoute from './AppRoute.jsx';
 
 const finalCreateStore = compose(
   devTools(),
@@ -21,17 +24,32 @@ if (module.hot) {
 }
 
 export default class App extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      isReady: false,
+      isLoggedIn: false
+    }
+  }
+  handleDone(isLoggedIn) {
+    this.setState({
+      isReady: true,
+      isLoggedIn: isLoggedIn
+    });
+  }
   render() {
+    const { isLoggedIn, isReady } = this.state;
+
     return (
       <div>
         <Provider store={store}>
-          {() => <TodoApp /> }
+          {() => isReady ? <AppRoute isLoggedIn={isLoggedIn}/> : <Loader onDone={::this.handleDone}/> }
         </Provider>
         { __DEV__ && <DebugPanel top right bottom>
           <DevTools store={store}
                     monitor={LogMonitor}
                     visibleOnLoad={true} />
-        </DebugPanel>}
+        </DebugPanel> }
       </div>
     );
   }

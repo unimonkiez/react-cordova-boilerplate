@@ -20,18 +20,11 @@ export default class Logo extends Component {
             setTimeout(() => {
                 this.setState({
                     auth: true
-                }, this.state.onDone);
+                }, this.props.onDone.bind(this, true));
             }, 500);
         }, 300);
     }   
   }
-
-  componentDidUpdate() {
-    if (this.state.auth){
-      this.props.onDone();
-    }
-  }
-
   handleSave(text) {
     if (text.length !== 0) {
       this.props.addTodo(text);

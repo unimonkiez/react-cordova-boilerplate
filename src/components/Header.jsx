@@ -14,11 +14,11 @@ export default class Header extends Component {
 
   render() {
     return (
-      <header className='header'>
+      <header className="header">
           <h1>Todos</h1>
           <TodoTextInput newTodo={true}
                          onSave={::this.handleSave}
-                         placeholder='What needs to be done?' />
+                         placeholder="What needs to be done?" />
       </header>
     );
   }

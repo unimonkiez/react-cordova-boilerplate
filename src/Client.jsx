@@ -4,7 +4,6 @@ import { devTools, persistState } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { Provider } from 'react-redux';
 import * as reducers from './reducers';
-import Router, {Route} from 'react-router';
 
 import Loader from './containers/Loader.jsx';
 import AppRoute from './containers/AppRoute.jsx';
@@ -29,7 +28,7 @@ class App extends Component {
     this.state = {
       isReady: false,
       isLoggedIn: false
-    }
+    };
   }
   handleDone(isLoggedIn) {
     this.setState({

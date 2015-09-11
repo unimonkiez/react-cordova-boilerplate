@@ -17,28 +17,12 @@ export default class Footer extends Component {
     onShow: PropTypes.func.isRequired
   }
 
-  render() {
-    return (
-      <footer className='footer'>
-        {this.renderTodoCount()}
-        <ul className='filters'>
-          {[SHOW_ALL, SHOW_UNMARKED, SHOW_MARKED].map(filter =>
-            <li key={filter}>
-              {this.renderFilterLink(filter)}
-            </li>
-          )}
-        </ul>
-        {this.renderClearButton()}
-      </footer>
-    );
-  }
-
   renderTodoCount() {
     const { unmarkedCount } = this.props;
     const itemWord = unmarkedCount === 1 ? 'item' : 'items';
 
     return (
-      <span className='todo-count'>
+      <span className="todo-count">
         <strong>{unmarkedCount || 'No'}</strong> {itemWord} left
       </span>
     );
@@ -61,11 +45,27 @@ export default class Footer extends Component {
     const { markedCount, onClearMarked } = this.props;
     if (markedCount > 0) {
       return (
-        <button className='clear-completed'
+        <button className="clear-completed"
                 onClick={onClearMarked} >
           Clear completed
         </button>
       );
     }
+  }
+
+  render() {
+    return (
+      <footer className="footer">
+        {this.renderTodoCount()}
+        <ul className="filters">
+          {[SHOW_ALL, SHOW_UNMARKED, SHOW_MARKED].map(filter =>
+            <li key={filter}>
+              {this.renderFilterLink(filter)}
+            </li>
+          )}
+        </ul>
+        {this.renderClearButton()}
+      </footer>
+    );
   }
 }

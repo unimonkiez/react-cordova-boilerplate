@@ -8,7 +8,7 @@ var __DEV__ = !__PROD__;
 module.exports = {
   devtool: __DEV__ ? 'source-map' : false,
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://0.0.0.0:3000',
     'webpack/hot/only-dev-server',
     './src/entry-points/Client.jsx'
   ],

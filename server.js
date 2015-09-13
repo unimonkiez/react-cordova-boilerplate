@@ -6,10 +6,11 @@ new WebpackDevServer(webpack(config), {
   contentBase: config.output.path,
   hot: true,
   historyApiFallback: true,
+  headers: {"Access-Control-Allow-Origin": "*"},
   stats: {
     colors: true
   }
-}).listen(3000, 'localhost', function (err) {
+}).listen(3000, '0.0.0.0', function (err) {
   if (err) {
     console.log(err);
   }

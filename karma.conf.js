@@ -1,5 +1,5 @@
 // Require webpack config rather than duplicating it
-const webpackConfig = require('./webpack.config');
+var webpackConfig = require('./webpack.config');
 webpackConfig.devtool = 'inline-source-map';
 delete webpackConfig.entry;
 delete webpackConfig.output;

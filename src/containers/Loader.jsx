@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
+import logoImgUrl from '../assets/logo.png';
 
-export default class Logo extends Component {
+export default class Loader extends Component {
   static propTypes = {
     onDone: PropTypes.func.isRequired
   };
@@ -21,8 +22,8 @@ export default class Logo extends Component {
           this.setState({
             auth: true
           }, this.props.onDone.bind(this, true));
-        }, 500);
-      }, 300);
+        }, 700);
+      }, 500);
     }
   }
   render() {
@@ -35,8 +36,20 @@ export default class Logo extends Component {
       text = 'Loading...';
     }
     return (
-      <div style={{position: 'absolute', zIndex: '100', width: '100%', height: '100%'}}>
-        <h1>Epic logo</h1>
+      <div style={{
+        position: 'absolute',
+        left: '0',
+        top: '0',
+        zIndex: '100',
+        width: '100%',
+        height: '100%',
+        paddingTop: '200px',
+        textAlign: 'center',
+        backgroundColor: '#222222',
+        color: 'white'
+      }}>
+        <img src={logoImgUrl}/>
+        <h1>TodoMvc</h1>
         { text }
       </div>
     );

@@ -10,7 +10,7 @@ export default class AppRoute extends Component {
     isLoggedIn: PropTypes.bool
   };
 
-  getDefaultProps() {
+  defaultProps() {
     return {
       isLoggedIn: false
     };

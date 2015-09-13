@@ -3,16 +3,17 @@
   "env": {
     "browser": true,
     "node": true,
-    "mocha": true,
+    "jasmine": true
   },
   "rules": {
+    no-undef: 2,
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2,
     "indent": [2, 2, {"SwitchCase": 1}],
     "react/jsx-boolean-value": 0,
     // Temporarirly disabled due to a possible bug in babel-eslint (todomvc example)
-    "block-scoped-var": 0,
+    //"block-scoped-var": 0,
     // Temporarily disabled for test/* until babel/babel-eslint#33 is resolved
     "padded-blocks": 0,
     "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
@@ -23,9 +24,9 @@
     "react"
   ],
   "globals": {
-    "__DEV__": true,
-    "__PROD__": true,
-    "__CLIENT__": true,
-    "__SERVER__": true
+    "__DEV__": false,
+    "__PROD__": false,
+    "__CLIENT__": false,
+    "__SERVER__": false
   }
 }

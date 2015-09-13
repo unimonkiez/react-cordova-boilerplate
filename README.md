@@ -3,7 +3,7 @@
 ## Installing
 
 1. Install dependencies: ```npm i```
-2. Install global tools: ```npm install -g cordova eslint webpack```
+2. Install global tools: ```npm install -g cordova eslint karma webpack```
 
 ## Usage
 - ```npm run start``` - starts a server, with react model replacement and devtools.

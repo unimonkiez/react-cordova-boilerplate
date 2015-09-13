@@ -3,10 +3,10 @@ import { createStore, combineReducers, compose } from 'redux';
 import { devTools, persistState } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { Provider } from 'react-redux';
-import * as reducers from './reducers';
+import * as reducers from '../reducers';
 
-import Loader from './containers/Loader.jsx';
-import AppRoute from './containers/AppRoute.jsx';
+import Loader from '../containers/Loader.jsx';
+import AppRoute from '../containers/AppRoute.jsx';
 
 const finalCreateStore = compose(
   devTools(),
@@ -17,8 +17,8 @@ const reducer = combineReducers(reducers);
 const store = finalCreateStore(reducer);
 
 if (module.hot) {
-  module.hot.accept('./reducers', () =>
-    store.replaceReducer(combineReducers(require('./reducers')))
+  module.hot.accept('../reducers', () =>
+    store.replaceReducer(combineReducers(require('../reducers')))
   );
 }
 

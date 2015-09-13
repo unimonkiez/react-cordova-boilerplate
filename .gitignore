@@ -1,2 +1,4 @@
-build/
+!www/
+www/*.*
+!www/*/
 node_modules/

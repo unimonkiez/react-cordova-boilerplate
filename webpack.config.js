@@ -13,7 +13,7 @@ module.exports = {
         './src/Client.jsx'
     ],
     output: {
-        path: path.join(__dirname, 'build'),
+        path: path.join(__dirname, 'www'),
         filename: 'bundle.js',
         publicPath: '/'
     },

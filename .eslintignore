@@ -1,4 +1,4 @@
-build/
+www/
 node_modules/
 server.js
 webpack.config.js

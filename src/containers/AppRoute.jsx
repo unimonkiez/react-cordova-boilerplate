@@ -6,29 +6,32 @@ import Login from './Login.jsx';
 import TodoApp from './TodoApp.jsx';
 
 export default class AppRoute extends Component {
-	static propTypes = {
-	  isLoggedIn: PropTypes.bool
-	};
-	getDefaultProps() {
-		return {
-			isLoggedIn: false
-		}
-	}
-	render(){
-		if (this.props.isLoggedIn){
-		  return (
-		    <Router history={history}>
-		  	  <Route path="/" component={TodoApp}/>
-		  	  <Redirect from="*" to="/"/>
-		    </Router>
-		  );
-		} else {
-		  return (
-		    <Router history={history}>
-		  	  <Route path="/login" component={Login}/>
-		      <Redirect from="*" to="/login"/>
-		    </Router>
-		  );
-		}
-	}
+  static propTypes = {
+    isLoggedIn: PropTypes.bool
+  };
+
+  getDefaultProps() {
+    return {
+      isLoggedIn: false
+    };
+  }
+  render() {
+    let component;
+    if (this.props.isLoggedIn) {
+      component = (
+        <Router history={history}>
+      	  <Route path="/" component={TodoApp}/>
+      	  <Redirect from="*" to="/"/>
+        </Router>
+      );
+    } else {
+      component = (
+        <Router history={history}>
+      	  <Route path="/login" component={Login}/>
+          <Redirect from="*" to="/login"/>
+        </Router>
+      );
+    }
+    return component;
+  }
 }

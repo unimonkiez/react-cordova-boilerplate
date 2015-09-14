@@ -64,7 +64,7 @@ var getServerString = function() {
 module.exports = {
   devtool: __DEV__ ? 'source-map' : false,
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3000',
+    'webpack-dev-server/client?',
     'webpack/hot/only-dev-server',
     './src/entry-points/Client.jsx'
   ],

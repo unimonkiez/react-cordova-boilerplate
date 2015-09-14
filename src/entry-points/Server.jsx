@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div>
         <Provider store={store}>
-          {() => <Loader/> }
+          {() => <Loader onDone={() => {}}/> }
         </Provider>
         { __DEV__ && <DebugPanel top right bottom>
           <DevTools store={store}

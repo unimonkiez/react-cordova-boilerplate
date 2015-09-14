@@ -2,7 +2,6 @@ www/
 node_modules/
 plugins/
 platforms/
-hooks/
 server.js
 webpack.config.js
 karma.conf.js

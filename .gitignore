@@ -4,4 +4,3 @@ www/**.*
 node_modules/
 plugins/
 platforms/
-hooks/

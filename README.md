@@ -17,3 +17,5 @@
 
 ## Build and run as application
 As you do with any cordova application, ```cordova build android```, ```cordova run android``` and more.
+
+cordova runs ```npm run build:prod``` before any cordova command (using hooks).

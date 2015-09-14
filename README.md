@@ -14,6 +14,6 @@
 - ```npm run start:prod``` - starts a server, with react model replacement and minifications of main html file and js file.
 - ```npm run build``` - builds the project (single html file and single js file) as it does for development.
 - ```npm run build:prod``` - builds the project (single html file and single js file) as it does for production.
-- 
+
 ## Build and run as application
 As you do with any cordova application, ```cordova build android```, ```cordova run android``` and more.

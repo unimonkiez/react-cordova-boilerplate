@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/yuvalsaraf/react-cordova-boilerplate.svg)](https://travis-ci.org/yuvalsaraf/react-cordova-boilerplate)
 # Redux DevTools TodoMVC example
 
 ## Installing

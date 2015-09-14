@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/yuvalsaraf/react-cordova-boilerplate.svg)](https://travis-ci.org/yuvalsaraf/react-cordova-boilerplate)
 # Redux DevTools TodoMVC example
-
+![](http://s16.postimg.org/hje88sfkl/Screenshot_2015_09_14_18_04_50_1.png)
 ## Installing
 
 1. Install dependencies: ```npm i```

@@ -1,7 +1,9 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var __PROD__ = process.env.NODE_ENV === 'production';
+
+var args = process.argv.slice(2);
+var __PROD__ = args.indexOf('-p') !== -1;
 var __DEV__ = !__PROD__;
 
 var webpackPlugins = [
@@ -57,7 +59,7 @@ var getServerString = function() {
   while (sync) {
     require('deasync').sleep(100);
   }
-  
+
   return data;
 }
 

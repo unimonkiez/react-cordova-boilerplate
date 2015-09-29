@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import logoImgUrl from '../assets/logo.png';
+import customFont from '../global-style/custom-font.scss';
 
 export default class Loader extends Component {
   static propTypes = {
@@ -21,7 +21,7 @@ export default class Loader extends Component {
         setTimeout(() => {
           this.setState({
             auth: true
-          }, this.props.onDone.bind(this, true));
+          });
         }, 700);
       }, 500);
     }
@@ -48,7 +48,10 @@ export default class Loader extends Component {
         backgroundColor: '#222222',
         color: 'white'
       }}>
-        <img src={logoImgUrl}/>
+        <span className={`${customFont.customFont} ${customFont.customFontJs}`} style={{fontSize: '200px'}}>
+          <span className={customFont.path1}></span>
+          <span className={customFont.path2}></span>
+        </span>
         <h1>TodoMvc</h1>
         { text }
       </div>

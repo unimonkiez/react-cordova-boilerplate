@@ -5,7 +5,6 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { Provider } from 'react-redux';
 import * as reducers from '../reducers';
 
-import Loader from '../containers/Loader.jsx';
 import AppRoute from '../containers/AppRoute.jsx';
 
 const finalCreateStore = compose(

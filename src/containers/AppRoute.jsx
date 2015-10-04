@@ -25,7 +25,6 @@ const wrapComponent = (component, props) => React.createClass({
 }}))
 export default class AppRoute extends Component {
   static propTypes = {
-    isLoggedIn: PropTypes.bool,
     stores: PropTypes.object,
     actions: PropTypes.object
   };
@@ -34,18 +33,13 @@ export default class AppRoute extends Component {
     this.history = createHistory();
   }
 
-  defaultProps() {
-    return {
-      isLoggedIn: false
-    };
-  }
   render() {
     let component;
     const {stores, actions} = this.props;
     const { credentials, todos } = stores;
     const { credentialsActions, todoActions } = actions;
 
-    if (this.props.isLoggedIn) {
+    if (credentials.valid) {
       component = (
         <Router history={this.history}>
           <Route path="/main" component={wrapComponent(TodoApp, { todos, actions: todoActions })}/>
@@ -55,7 +49,7 @@ export default class AppRoute extends Component {
     } else {
       component = (
         <Router history={this.history}>
-          <Route path="/login" component={wrapComponent(Login, { credentials, credentialsActions, onLogin: this.handleLogin })}/>
+          <Route path="/login" component={wrapComponent(Login, { credentials, credentialsActions })}/>
           <Redirect from="*" to="/login"/>
         </Router>
       );

@@ -29,15 +29,7 @@ class App extends Component {
       isLoggedIn: false
     };
   }
-  handleDone(isLoggedIn) {
-    this.setState({
-      isReady: true,
-      isLoggedIn: isLoggedIn
-    });
-  }
   render() {
-    const { isLoggedIn, isReady } = this.state;
-
     return (
       <div>
         <Provider store={store}>

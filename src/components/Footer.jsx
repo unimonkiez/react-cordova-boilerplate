@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import classnames from 'classnames';
 import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from '../constants/TodoFilters';
+import todoStyle from '../global-style/todo-style.scss';
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
@@ -22,7 +23,7 @@ export default class Footer extends Component {
     const itemWord = unmarkedCount === 1 ? 'item' : 'items';
 
     return (
-      <span className="todo-count">
+      <span className={todoStyle['todo-count']}>
         <strong>{unmarkedCount || 'No'}</strong> {itemWord} left
       </span>
     );
@@ -33,7 +34,7 @@ export default class Footer extends Component {
     const { filter: selectedFilter, onShow } = this.props;
 
     return (
-      <a className={classnames({ selected: filter === selectedFilter })}
+      <a className={classnames({ [todoStyle.selected]: filter === selectedFilter })}
          style={{ cursor: 'hand' }}
          onClick={() => onShow(filter)}>
         {title}
@@ -45,7 +46,7 @@ export default class Footer extends Component {
     const { markedCount, onClearMarked } = this.props;
     if (markedCount > 0) {
       return (
-        <button className="clear-completed"
+        <button className={todoStyle['clear-completed']}
                 onClick={onClearMarked} >
           Clear completed
         </button>
@@ -55,9 +56,9 @@ export default class Footer extends Component {
 
   render() {
     return (
-      <footer className="footer">
+      <footer className={todoStyle.footer}>
         {this.renderTodoCount()}
-        <ul className="filters">
+        <ul className={todoStyle.filters}>
           {[SHOW_ALL, SHOW_UNMARKED, SHOW_MARKED].map(filter =>
             <li key={filter}>
               {this.renderFilterLink(filter)}

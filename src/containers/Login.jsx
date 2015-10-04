@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import customFont from '../global-style/custom-font.scss';
 
 export default class Login extends Component {
   static propTypes = {
@@ -31,6 +32,7 @@ export default class Login extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    //console.log(this.history.pushState('/'));
     // Ajax..
     setTimeout(() => {
       const randToken = Math.random().toString(36).substr(2);
@@ -40,12 +42,12 @@ export default class Login extends Component {
   render() {
     const { hideLogin } = this.state;
     return (
-      <div style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', textAlign: 'center', backgroundColor: '#F7DF1E'}}>
+      <div style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', textAlign: 'center', backgroundColor: '#F7DF1E', color: 'black'}}>
         <div style={{position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>
           <div>
-            <span className="icon-js" style={{fontSize: '200px', border: '1px solid black'}}>
-              <span className="path1"></span>
-              <span className="path2"></span>
+            <span className={`${customFont.customFont} ${customFont.customFontJs}`} style={{fontSize: '200px'}}>
+              <span className={customFont.path1}></span>
+              <span className={customFont.path2}></span>
             </span>
             <h1>TodoMVC example</h1>
           </div>

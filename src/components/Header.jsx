@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import TodoTextInput from './TodoTextInput.jsx';
+import todoStyle from '../global-style/todo-style.scss';
 
 export default class Header extends Component {
   static propTypes = {
@@ -14,7 +15,7 @@ export default class Header extends Component {
 
   render() {
     return (
-      <header className="header">
+      <header className={todoStyle.header}>
           <h1>Todos</h1>
           <TodoTextInput newTodo={true}
                          onSave={::this.handleSave}

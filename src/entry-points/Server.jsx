@@ -5,7 +5,7 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { Provider } from 'react-redux';
 import * as reducers from '../reducers';
 
-import Loader from '../containers/Loader.jsx';
+import Login from '../containers/Login.jsx';
 
 const finalCreateStore = compose(
   devTools(),
@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div>
         <Provider store={store}>
-          {() => <Loader onDone={() => {}}/> }
+          {() => <Login onLogin={() => {}}/> }
         </Provider>
         { __DEV__ && <DebugPanel top right bottom>
           <DevTools store={store}

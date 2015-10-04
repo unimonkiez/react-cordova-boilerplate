@@ -42,7 +42,7 @@ class App extends Component {
     return (
       <div>
         <Provider store={store}>
-          {() => isReady ? <AppRoute isLoggedIn={isLoggedIn}/> : <Loader onDone={::this.handleDone}/> }
+          {() => <AppRoute/> }
         </Provider>
         { __DEV__ && <DebugPanel top right bottom>
           <DevTools store={store}

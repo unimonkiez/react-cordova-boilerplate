@@ -32,7 +32,6 @@ export default class Login extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    //console.log(this.history.pushState('/'));
     // Ajax..
     setTimeout(() => {
       const randToken = Math.random().toString(36).substr(2);

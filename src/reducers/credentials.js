@@ -1,9 +1,9 @@
 import { CLEAR_CREDENTIALS, ADD_CREDENTIALS } from '../constants/CredentialsActionTypes';
 
-const stateFromLocalstorage = localStorage.credentials ? JSON.parse(localStorage.credentials) : {};
-const initialState = { ...stateFromLocalstorage, valid: false };
+const stateFromLocalstorage = __CLIENT__ && localStorage.credentials ? JSON.parse(localStorage.credentials) : {};
+const initialState = { ...stateFromLocalstorage, valid: stateFromLocalstorage.time >= Date.now() - 1000 * 60 };
 
-export default function todos(state = initialState, action) {
+export default function credentials(state = initialState, action) {
   let nextState;
   switch (action.type) {
     case CLEAR_CREDENTIALS:
@@ -12,7 +12,8 @@ export default function todos(state = initialState, action) {
     case ADD_CREDENTIALS:
       nextState = {
         token: action.token,
-        valid: true
+        valid: true,
+        time: Date.now()
       };
       break;
 

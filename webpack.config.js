@@ -48,7 +48,12 @@ var getServerString = function() {
       path: '/',
       filename: 'bundle.js'
     },
-    plugins: webpackPlugins,
+    plugins: [new webpack.DefinePlugin({
+    __DEV__: JSON.stringify(__DEV__),
+    __PROD__: JSON.stringify(__PROD__),
+    __CLIENT__: JSON.stringify(false),
+    __SERVER__: JSON.stringify(true)
+  })],
     module: webpackModule
   };
 

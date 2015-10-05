@@ -12,39 +12,42 @@ export default function todos(state = initialState, action) {
 
   switch (type) {
     case CLEAR_CREDENTIALS:
-      return initialState;
-    case CHECK_CREDENTIALS:
       return {
-        ...state,
-        checkingToken: true
+        ...initialState,
+        checkingToken: false
       };
+    case CHECK_CREDENTIALS:
+      return initialState;
     case CHECK_CREDENTIALS_SUCCESS:
       return {
-        ...state,
+        ...initialState,
         checkingToken: false,
         authenticated: true
       };
     case CHECK_CREDENTIALS_FAILURE:
       return {
-        ...state,
+        ...initialState,
         checkingToken: false
       };
     case ADD_CREDENTIALS:
       return {
-        ...state,
-        loggingIn: true
+        ...initialState,
+        loggingIn: true,
+        checkingToken: false
       };
     case ADD_CREDENTIALS_SUCCESS:
       return {
-        ...state,
+        ...initialState,
         authenticated: true,
-        loggingIn: false
+        loggingIn: false,
+        checkingToken: false
       };
     case ADD_CREDENTIALS_FAILURE:
       return {
-        ...state,
+        ...initialState,
         authenticated: false,
         loggingIn: false,
+        checkingToken: false,
         hint
       };
     default:

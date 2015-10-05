@@ -41,12 +41,10 @@ export default {
         if (cb) {
           cb(true);
         }
-        this.onChange(true);
       } else {
         if (cb) {
           cb(false, res.hint);
         }
-        this.onChange(false);
       }
     });
   },
@@ -60,7 +58,6 @@ export default {
     if (cb) {
       cb(false);
     }
-    this.onChange(false);
   },
 
   // If doesn't have token or login time has passed, do not validate the token against the server.
@@ -71,28 +68,6 @@ export default {
       pretendTokenRequest(localStorage.token, (res) => {
         cb(res.authenticated);
       });
-    }
-  },
-
-  onChange(authenticated) {
-    this.onChangeHandlers.forEach(handler => {
-      handler(authenticated);
-    });
-  },
-
-  registerOnChangeHandler(handler) {
-    const typeOfHandler = typeof handler;
-    if (typeOfHandler !== 'function') {
-      throw new Error(`registerOnChangeHandler accepts only a function, got ${typeOfHandler}`);
-    }
-    this.onChangeHandlers.push(handler);
-    return this.unregisterOnChangeHandler.bind(this, handler);
-  },
-
-  unregisterOnChangeHandler(handler) {
-    const indexOfHandler = this.onChangeHandlers.indexOf(handler);
-    if (indexOfHandler !== -1) {
-      this.onChangeHandlers.splice(indexOfHandler, 1);
     }
   }
 };

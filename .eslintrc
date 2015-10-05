@@ -16,7 +16,8 @@
     //"block-scoped-var": 0,
     // Temporarily disabled for test/* until babel/babel-eslint#33 is resolved
     "padded-blocks": 0,
-    "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
+    "comma-dangle": 0, // not sure why airbnb turned this on. gross!
+    "id-length": 0, // not sure why airbnb turned this on. gross!
     "no-console": 0,
     "no-alert": 0
   },

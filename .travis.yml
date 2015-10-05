@@ -3,6 +3,5 @@ node_js:
   - "0.12"
 before_script:
   - export DISPLAY=:99.0
-  - npm i
   - npm run lint
   - npm test

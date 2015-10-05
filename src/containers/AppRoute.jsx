@@ -31,7 +31,9 @@ export default class AppRoute extends Component {
       if (authenticated) {
         credentialsActions.checkCredentialsSucess();
       } else {
-        credentialsActions.checkCredentialsFailure();
+        setTimeout(() => {
+          credentialsActions.checkCredentialsFailure();
+        });        
       }
     });
   }

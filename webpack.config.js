@@ -14,7 +14,8 @@ var webpackPlugins = [
     __PROD__: JSON.stringify(__PROD__),
     __CLIENT__: JSON.stringify(true),
     __SERVER__: JSON.stringify(false)
-  })
+  }),
+  new ExtractTextPlugin("styles.css")
 ];
 
 var webpackModule = {
@@ -26,7 +27,7 @@ var webpackModule = {
     test: /\.(png|jpg)$/,
     loader: 'url-loader?limit=8192'
   }, {
-    test: /\.scss$/,
+    test: /\.(scss|css)$/,
     loader: __PROD__ ? ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true') : 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
   }, {
     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -48,12 +49,7 @@ var getServerString = function() {
       path: '/',
       filename: 'bundle.js'
     },
-    plugins: [new webpack.DefinePlugin({
-    __DEV__: JSON.stringify(__DEV__),
-    __PROD__: JSON.stringify(__PROD__),
-    __CLIENT__: JSON.stringify(false),
-    __SERVER__: JSON.stringify(true)
-  })],
+    plugins: webpackPlugins,
     module: webpackModule
   };
 
@@ -114,6 +110,10 @@ module.exports = {
       template: './src/index.html', // Load a custom template
       inject: 'body' // Inject all scripts into the body
     })
-  ]).concat(__PROD__ ? [new webpack.optimize.UglifyJsPlugin()] : []),
+  ]).concat(__PROD__ ? [new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false
+    }
+  })] : []),
   module: webpackModule
 };

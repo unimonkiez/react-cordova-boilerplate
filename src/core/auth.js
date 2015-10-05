@@ -28,7 +28,7 @@ function pretendTokenRequest(token, cb) {
         authenticated: false
       });
     }
-  }, 0);
+  }, 300);
 }
 
 export default {

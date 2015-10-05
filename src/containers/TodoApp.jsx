@@ -12,8 +12,7 @@ const style = {
   borderRadius: '10px'
 };
 
-@connect(state => ({ todos: state.todos }), dispatch => ({ actions: bindActionCreators(TodoActions, dispatch) }))
-export default class TodoApp extends Component {
+export class TodoApp extends Component {
   static propTypes = {
     todos: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
@@ -28,3 +27,5 @@ export default class TodoApp extends Component {
     );
   }
 }
+
+export default connect(state => ({ todos: state.todos }), dispatch => ({ actions: bindActionCreators(TodoActions, dispatch) }))(TodoApp);

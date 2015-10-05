@@ -22,13 +22,6 @@ if (module.hot) {
 }
 
 class App extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      isReady: false,
-      isLoggedIn: false
-    };
-  }
   render() {
     return (
       <div>

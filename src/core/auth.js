@@ -13,7 +13,7 @@ function pretendLoginRequest(email, pass, cb) {
         hint
       });
     }
-  }, 0);
+  }, 500);
 }
 function pretendTokenRequest(token, cb) {
   setTimeout(() => {

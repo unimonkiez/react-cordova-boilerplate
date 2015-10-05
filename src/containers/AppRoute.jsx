@@ -6,13 +6,12 @@ import { bindActionCreators } from 'redux';
 import Login from './Login.jsx';
 import TodoApp from './TodoApp.jsx';
 
-import * as TodoActions from '../actions/TodoActions';
+import * as CredentialsActions from '../actions/CredentialsActions';
 
 import auth from '../core/auth';
-import wrapComponent from './wrapComponent';
 
 @connect(state => ({stores: state}), dispatch => ({ actions: {
-  todoActions: bindActionCreators(TodoActions, dispatch)
+  credentialsActions: bindActionCreators(CredentialsActions, dispatch)
 }}))
 export default class AppRoute extends Component {
   static propTypes = {
@@ -23,48 +22,40 @@ export default class AppRoute extends Component {
     super(props, context);
     const history = createHistory();
     this.state = {
-      history,
-      authenticated: false
+      history
     };
-    this._unregisterOnChangeHandler = auth.registerOnChangeHandler(::this.handleAuthChange);
+
+    const { credentialsActions } = props.actions;
+    credentialsActions.checkCredentials();
+    auth.loggedIn(authenticated => {
+      if (authenticated) {
+        credentialsActions.checkCredentialsSucess();
+      } else {
+        credentialsActions.checkCredentialsFailure();
+      }
+    });
   }
-  componentDidMount() {
-    auth.loggedIn(::this.handleAuthChange);
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.authenticated !== prevState.authenticated) {
+  componentDidUpdate(prevProps) {
+    if (this.props.stores.credentials.authenticated !== prevProps.stores.credentials.authenticated) {
       this.state.history.pushState(null, '/');
     }
   }
-  componentWillUnmount() {
-    this._unregisterOnChangeHandler();
-    delete this._unregisterOnChangeHandler;
-  }
-  handleAuthChange(authenticated) {
-    this.setState({
-      authenticated
-    });
-  }
   checkAuth(nextState, replaceState) {
-    if (!this.state.authenticated) {
+    if (!this.props.stores.credentials.authenticated) {
       replaceState({ nextPathname: nextState.location.pathname }, '/login');
     }
   }
   handleRedirect(nextState, replaceState) {
-    replaceState({ nextPathname: nextState.location.pathname }, this.state.authenticated ? '/main' : '/login');
+    replaceState({ nextPathname: nextState.location.pathname }, this.props.stores.credentials.authenticated ? '/main' : '/login');
   }
 
   render() {
-    const { history, authenticated } = this.state;
-
-    const {stores, actions} = this.props;
-    const { todos } = stores;
-    const { todoActions } = actions;
+    const { history } = this.state;
 
     return (
       <Router history={history}>
-        <Route path="/main" component={wrapComponent(TodoApp, { todos, actions: todoActions })} onEnter={::this.checkAuth}/>
-        <Route path="/login" component={wrapComponent(Login, { history, hideLogin: authenticated })}/>
+        <Route path="/main" component={TodoApp} onEnter={::this.checkAuth}/>
+        <Route path="/login" component={Login}/>
         <Route path="*" onEnter={::this.handleRedirect}/>
       </Router>
     );

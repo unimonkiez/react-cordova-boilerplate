@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import TodoTextInput from './TodoTextInput.jsx';
-import todoStyle from '../global-style/todo-style.scss';
+import todoStyle from '../style/todo-style.scss';
 
 export default class Header extends Component {
   static propTypes = {

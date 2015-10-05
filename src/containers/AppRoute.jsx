@@ -7,7 +7,8 @@ import Login from './Login.jsx';
 import TodoApp from './TodoApp.jsx';
 
 import * as TodoActions from '../actions/TodoActions';
-import * as CredentialsActions from '../actions/CredentialsActions';
+
+import auth from '../core/auth';
 
 const wrapComponent = (component, props) => React.createClass({
   propTypes: {
@@ -20,8 +21,7 @@ const wrapComponent = (component, props) => React.createClass({
 });
 
 @connect(state => ({stores: state}), dispatch => ({ actions: {
-  todoActions: bindActionCreators(TodoActions, dispatch),
-  credentialsActions: bindActionCreators(CredentialsActions, dispatch)
+  todoActions: bindActionCreators(TodoActions, dispatch)
 }}))
 export default class AppRoute extends Component {
   static propTypes = {
@@ -30,30 +30,47 @@ export default class AppRoute extends Component {
   };
   constructor(props, context) {
     super(props, context);
-    this.history = createHistory();
+    const history = createHistory();
+    this.state = {
+      history,
+      isFirstPath: true,
+      authenticated: false
+    };
+    auth.loggedIn(::this.handleAuthChange);
+  }
+  handleAuthChange(authenticated) {
+    this.setState({
+      authenticated
+    }, () => {
+      this.state.history.pushState('/');
+    });
+  }
+  componentWillMount() {
+    this._unregisterOnChangeHandler = auth.registerOnChangeHandler(::this.handleAuthChange);
+  }
+  componentWillUnmount() {
+    this._unregisterOnChangeHandler();
+    delete this._unregisterOnChangeHandler;
+  }
+  checkAuth(nextState, replaceState) {
+    if (!this.state.authenticated) {
+      replaceState({ nextPathname: nextState.location.pathname }, '/login');
+    }
   }
 
   render() {
-    let component;
+    const { history, isFirstPath, authenticated } = this.state;
+
     const {stores, actions} = this.props;
     const { credentials, todos } = stores;
     const { credentialsActions, todoActions } = actions;
 
-    if (credentials.valid) {
-      component = (
-        <Router history={this.history}>
-          <Route path="/main" component={wrapComponent(TodoApp, { todos, actions: todoActions })}/>
-          <Redirect from="*" to="/main"/>
-        </Router>
-      );
-    } else {
-      component = (
-        <Router history={this.history}>
-          <Route path="/login" component={wrapComponent(Login, { credentials, credentialsActions })}/>
-          <Redirect from="*" to="/login"/>
-        </Router>
-      );
-    }
-    return component;
+    return (
+      <Router history={history}>
+        <Route path="/main" component={wrapComponent(TodoApp, { todos, actions: todoActions })} onEnter={::this.checkAuth}/>
+        <Route path="/login" component={wrapComponent(Login, { credentials, credentialsActions, history, hideLogin: authenticated })}/>
+        <Redirect from="*" to={authenticated ? '/main' : '/login'}/>
+      </Router>
+    );
   }
 }

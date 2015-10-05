@@ -33,7 +33,7 @@ class App extends Component {
     return (
       <div>
         <Provider store={store}>
-          {() => <AppRoute/> }
+          {() => <AppRoute force={() => {store.replaceReducer(combineReducers(require('../reducers')))}}/> }
         </Provider>
         { __DEV__ && <DebugPanel top right bottom>
           <DevTools store={store}

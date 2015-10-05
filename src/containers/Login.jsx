@@ -1,45 +1,44 @@
 import React, { Component, PropTypes } from 'react';
-import customFont from '../global-style/custom-font.scss';
+import customFont from '../style/custom-font.scss';
+import auth from '../core/auth';
 
 export default class Login extends Component {
   static propTypes = {
     credentials: PropTypes.object,
     credentialsActions: PropTypes.object,
-    prevPath: PropTypes.string,
-    onLogin: PropTypes.func
+    history: PropTypes.object,
+    hideLogin: PropTypes.bool
   };
   constructor(props, context) {
     super(props, context);
     this.state = {
-      hideLogin: props.prevPath === undefined
+      hint: false,
+      hideLogin: true
     };
   }
   componentDidMount() {
-    this.getLoginState().then((data) => {
-      this.props.onLogin(data);
-    }, () => {
+    setTimeout(() => {
       this.setState({
-        hideLogin: false
+        hideLogin: this.props.hideLogin
       });
     });
   }
-  getLoginState() {
-    // Resolve if login is valid, reject if needs to log in.
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(reject);
-    });
-    return promise;
-  }
   handleSubmit(e) {
     e.preventDefault();
-    // Ajax..
-    setTimeout(() => {
-      const randToken = Math.random().toString(36).substr(2);
-      this.props.credentialsActions.addCredentials(randToken);
-    }, 1000);
+    const email = this.refs.email.getDOMNode().value;
+    const password = this.refs.password.getDOMNode().value;
+    auth.login(email, password, (authenticated, hint) => {
+      if (authenticated) {
+        this.props.history.pushState('/');
+      } else {
+        this.setState({
+          hint
+        });
+      }
+    });
   }
   render() {
-    const { hideLogin } = this.state;
+    const { hint, hideLogin } = this.state;
     return (
       <div style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', textAlign: 'center', backgroundColor: '#F7DF1E', color: 'black'}}>
         <div style={{position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>
@@ -53,13 +52,14 @@ export default class Login extends Component {
           <div style={{maxHeight: hideLogin ? '0' : '500px', overflow: 'hidden', transition: 'max-height 1.5s ease-in-out'}}>
             <h1>Login</h1>
             <form onSubmit={::this.handleSubmit}>
-              <div>
-                <input type="text" placeholder="Email"/>
+              <div style={{paddingTop: '5px'}}>
+                <input type="text" ref="email" placeholder="Email"/>
               </div>
-              <div>
-                <input type="password" placeholder="Password"/>
+              <div style={{paddingTop: '5px'}}>
+                <input type="password" ref="password" placeholder="Password"/>
+                {hint && <div>Hint: {hint}</div>}
               </div>
-              <div>
+              <div style={{paddingTop: '5px'}}>
                 <input type="submit" value="Login"/>
               </div>
             </form>

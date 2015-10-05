@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import classnames from 'classnames';
 import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from '../constants/TodoFilters';
-import todoStyle from '../global-style/todo-style.scss';
+import todoStyle from '../style/todo-style.scss';
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',

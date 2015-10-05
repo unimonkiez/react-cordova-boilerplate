@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import TodoTextInput from './TodoTextInput.jsx';
-import todoStyle from '../global-style/todo-style.scss';
+import todoStyle from '../style/todo-style.scss';
 
 export default class TodoItem extends Component {
   static propTypes = {

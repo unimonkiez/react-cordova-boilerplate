@@ -9,16 +9,7 @@ import TodoApp from './TodoApp.jsx';
 import * as TodoActions from '../actions/TodoActions';
 
 import auth from '../core/auth';
-
-const wrapComponent = (component, props) => React.createClass({
-  propTypes: {
-    route: PropTypes.object
-  },
-  render() {
-    const { route } = this.props;
-    return React.createElement(component, { route, ...props});
-  }
-});
+import wrapComponent from './wrapComponent';
 
 @connect(state => ({stores: state}), dispatch => ({ actions: {
   todoActions: bindActionCreators(TodoActions, dispatch)
@@ -33,24 +24,21 @@ export default class AppRoute extends Component {
     const history = createHistory();
     this.state = {
       history,
-      isFirstPath: true,
       authenticated: false
     };
+    this._unregisterOnChangeHandler = auth.registerOnChangeHandler(::this.handleAuthChange);
   }
   componentDidMount() {
     auth.loggedIn(::this.handleAuthChange);
-  }
-  componentWillMount() {
-    this._unregisterOnChangeHandler = auth.registerOnChangeHandler(::this.handleAuthChange);
-  }
-  componentWillUnmount() {
-    this._unregisterOnChangeHandler();
-    delete this._unregisterOnChangeHandler;
   }
   componentDidUpdate(prevProps, prevState) {
     if (this.state.authenticated !== prevState.authenticated) {
       this.state.history.pushState(null, '/');
     }
+  }
+  componentWillUnmount() {
+    this._unregisterOnChangeHandler();
+    delete this._unregisterOnChangeHandler;
   }
   handleAuthChange(authenticated) {
     this.setState({
@@ -67,7 +55,7 @@ export default class AppRoute extends Component {
   }
 
   render() {
-    const { history, isFirstPath, authenticated } = this.state;
+    const { history, authenticated } = this.state;
 
     const {stores, actions} = this.props;
     const { todos } = stores;

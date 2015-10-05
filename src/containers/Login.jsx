@@ -17,8 +17,8 @@ export default class Login extends Component {
     setTimeout(() => {
       this.setState({
         hideLogin: nextProps.hideLogin
-      });  
-    });    
+      });
+    });
   }
   handleSubmit(e) {
     e.preventDefault();

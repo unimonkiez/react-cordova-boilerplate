@@ -6,14 +6,14 @@ function pretendLoginRequest(email, pass, cb) {
         authenticated: true,
         time: Date.now(),
         token: Math.random().toString(36).substring(7)
-      })
+      });
     } else {
       cb({
         authenticated: false,
         hint
-      })
+      });
     }
-  }, 0)
+  }, 0);
 }
 function pretendTokenRequest(token, cb) {
   setTimeout(() => {
@@ -22,13 +22,13 @@ function pretendTokenRequest(token, cb) {
         authenticated: true,
         time: Date.now(),
         token
-      })
+      });
     } else {
       cb({
         authenticated: false
-      })
+      });
     }
-  }, 0)
+  }, 0);
 }
 
 export default {
@@ -41,14 +41,14 @@ export default {
         if (cb) {
           cb(true);
         }
-        this.onChange(true)
+        this.onChange(true);
       } else {
         if (cb) {
           cb(false, res.hint);
         }
-        this.onChange(false)
+        this.onChange(false);
       }
-    })
+    });
   },
 
   getToken() {
@@ -60,7 +60,7 @@ export default {
     if (cb) {
       cb(false);
     }
-    this.onChange(false)
+    this.onChange(false);
   },
 
   // If doesn't have token or login time has passed, do not validate the token against the server.
@@ -83,7 +83,7 @@ export default {
   registerOnChangeHandler(handler) {
     const typeOfHandler = typeof handler;
     if (typeOfHandler !== 'function') {
-      throw `registerOnChangeHandler accepts only a function, got ${typeOfHandler}`;
+      throw new Error(`registerOnChangeHandler accepts only a function, got ${typeOfHandler}`);
     }
     this.onChangeHandlers.push(handler);
     return this.unregisterOnChangeHandler.bind(this, handler);
@@ -95,4 +95,4 @@ export default {
       this.onChangeHandlers.splice(indexOfHandler, 1);
     }
   }
-}
+};

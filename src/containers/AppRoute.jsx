@@ -33,7 +33,7 @@ export default class AppRoute extends Component {
       } else {
         setTimeout(() => {
           credentialsActions.checkCredentialsFailure();
-        });        
+        });
       }
     });
   }

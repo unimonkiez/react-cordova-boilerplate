@@ -68,7 +68,9 @@ export default {
     if (!localStorage.token || localStorage.time <= Date.now() - 1000 * 60) {
       cb(false);
     } else {
-      pretendTokenRequest(localStorage.token, cb);
+      pretendTokenRequest(localStorage.token, (res) => {
+        cb(res.authenticated);
+      });
     }
   },
 

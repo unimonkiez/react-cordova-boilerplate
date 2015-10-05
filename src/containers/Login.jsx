@@ -4,9 +4,6 @@ import auth from '../core/auth';
 
 export default class Login extends Component {
   static propTypes = {
-    credentials: PropTypes.object,
-    credentialsActions: PropTypes.object,
-    history: PropTypes.object,
     hideLogin: PropTypes.bool
   };
   constructor(props, context) {
@@ -16,21 +13,19 @@ export default class Login extends Component {
       hideLogin: true
     };
   }
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
     setTimeout(() => {
       this.setState({
-        hideLogin: this.props.hideLogin
-      });
-    });
+        hideLogin: nextProps.hideLogin
+      });  
+    });    
   }
   handleSubmit(e) {
     e.preventDefault();
     const email = this.refs.email.getDOMNode().value;
     const password = this.refs.password.getDOMNode().value;
     auth.login(email, password, (authenticated, hint) => {
-      if (authenticated) {
-        this.props.history.pushState('/');
-      } else {
+      if (!authenticated) {
         this.setState({
           hint
         });
@@ -49,7 +44,7 @@ export default class Login extends Component {
             </span>
             <h1>TodoMVC example</h1>
           </div>
-          <div style={{maxHeight: hideLogin ? '0' : '500px', overflow: 'hidden', transition: 'max-height 1.5s ease-in-out'}}>
+          <div style={{maxHeight: hideLogin ? '0' : '1000px', overflow: 'hidden', transition: 'max-height 1.5s ease-in-out'}}>
             <h1>Login</h1>
             <form onSubmit={::this.handleSubmit}>
               <div style={{paddingTop: '5px'}}>
@@ -57,7 +52,7 @@ export default class Login extends Component {
               </div>
               <div style={{paddingTop: '5px'}}>
                 <input type="password" ref="password" placeholder="Password"/>
-                {hint && <div>Hint: {hint}</div>}
+                <div style={{height: '1em'}}>{hint && `Hint: ${hint}`}</div>
               </div>
               <div style={{paddingTop: '5px'}}>
                 <input type="submit" value="Login"/>

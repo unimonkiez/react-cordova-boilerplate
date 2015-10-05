@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Router, { Route, Redirect } from 'react-router';
+import Router, { Route } from 'react-router';
 import { createHistory } from 'history';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -36,14 +36,9 @@ export default class AppRoute extends Component {
       isFirstPath: true,
       authenticated: false
     };
-    auth.loggedIn(::this.handleAuthChange);
   }
-  handleAuthChange(authenticated) {
-    this.setState({
-      authenticated
-    }, () => {
-      this.state.history.pushState('/');
-    });
+  componentDidMount() {
+    auth.loggedIn(::this.handleAuthChange);
   }
   componentWillMount() {
     this._unregisterOnChangeHandler = auth.registerOnChangeHandler(::this.handleAuthChange);
@@ -52,24 +47,37 @@ export default class AppRoute extends Component {
     this._unregisterOnChangeHandler();
     delete this._unregisterOnChangeHandler;
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.authenticated !== prevState.authenticated) {
+      this.state.history.pushState(null, '/');
+    }
+  }
+  handleAuthChange(authenticated) {
+    this.setState({
+      authenticated
+    });
+  }
   checkAuth(nextState, replaceState) {
     if (!this.state.authenticated) {
       replaceState({ nextPathname: nextState.location.pathname }, '/login');
     }
+  }
+  handleRedirect(nextState, replaceState) {
+    replaceState({ nextPathname: nextState.location.pathname }, this.state.authenticated ? '/main' : '/login');
   }
 
   render() {
     const { history, isFirstPath, authenticated } = this.state;
 
     const {stores, actions} = this.props;
-    const { credentials, todos } = stores;
-    const { credentialsActions, todoActions } = actions;
+    const { todos } = stores;
+    const { todoActions } = actions;
 
     return (
       <Router history={history}>
         <Route path="/main" component={wrapComponent(TodoApp, { todos, actions: todoActions })} onEnter={::this.checkAuth}/>
-        <Route path="/login" component={wrapComponent(Login, { credentials, credentialsActions, history, hideLogin: authenticated })}/>
-        <Redirect from="*" to={authenticated ? '/main' : '/login'}/>
+        <Route path="/login" component={wrapComponent(Login, { history, hideLogin: authenticated })}/>
+        <Route path="*" onEnter={::this.handleRedirect}/>
       </Router>
     );
   }

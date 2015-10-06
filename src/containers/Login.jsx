@@ -7,6 +7,7 @@ import auth from '../core/auth';
 
 export class Login extends Component {
   static propTypes = {
+    general: PropTypes.object,
     credentials: PropTypes.object,
     credentialsActions: PropTypes.object
   };
@@ -28,9 +29,9 @@ export class Login extends Component {
     });
   }
   render() {
-    const { credentials } = this.props;
-    const { authenticated, checkingToken, loggingIn } = credentials;
-    const hideLogin = authenticated || checkingToken || loggingIn;
+    const { general, credentials } = this.props;
+    const { checkingToken, loggingIn } = credentials;
+    const hideLogin = (!general.mounted) || checkingToken || loggingIn;
 
     return (
       <div style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', textAlign: 'center', backgroundColor: '#F7DF1E', color: 'black'}}>
@@ -63,4 +64,4 @@ export class Login extends Component {
   }
 }
 
-export default connect(state => ({ credentials: state.credentials }), dispatch => ({ credentialsActions: bindActionCreators(CredentialsActions, dispatch) }))(Login);
+export default connect(state => ({ general: state.general, credentials: state.credentials }), dispatch => ({ credentialsActions: bindActionCreators(CredentialsActions, dispatch) }))(Login);

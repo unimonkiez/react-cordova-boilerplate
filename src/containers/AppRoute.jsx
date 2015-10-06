@@ -6,11 +6,13 @@ import { bindActionCreators } from 'redux';
 import Login from './Login.jsx';
 import TodoApp from './TodoApp.jsx';
 
+import * as GeneralActions from '../actions/GeneralActions';
 import * as CredentialsActions from '../actions/CredentialsActions';
 
 import auth from '../core/auth';
 
 @connect(state => ({stores: state}), dispatch => ({ actions: {
+  generalActions: bindActionCreators(GeneralActions, dispatch),
   credentialsActions: bindActionCreators(CredentialsActions, dispatch)
 }}))
 export default class AppRoute extends Component {
@@ -22,7 +24,8 @@ export default class AppRoute extends Component {
     super(props, context);
     const history = createHistory();
     this.state = {
-      history
+      history,
+      isMounted: false
     };
 
     const { credentialsActions } = props.actions;
@@ -36,6 +39,9 @@ export default class AppRoute extends Component {
         });
       }
     });
+  }
+  componentDidMount() {
+    this.props.actions.generalActions.mount();
   }
   componentDidUpdate(prevProps) {
     if (this.props.stores.credentials.authenticated !== prevProps.stores.credentials.authenticated) {
@@ -52,12 +58,12 @@ export default class AppRoute extends Component {
   }
 
   render() {
-    const { history } = this.state;
+    const { history, isMounted } = this.state;
 
     return (
       <Router history={history}>
         <Route path="/main" component={TodoApp} onEnter={::this.checkAuth}/>
-        <Route path="/login" component={Login}/>
+        <Route path="/login" isFirstRender={(!isMounted)} component={Login}/>
         <Route path="*" onEnter={::this.handleRedirect}/>
       </Router>
     );

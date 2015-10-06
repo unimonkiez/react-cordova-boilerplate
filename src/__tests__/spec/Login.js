@@ -4,7 +4,7 @@ import { Login } from '../../containers/Login.jsx';
 
 describe('Login', () => {
   it('renders', () => {
-    const element = TestUtils.renderIntoDocument(<Login credentials={{}} credentialsActions={{}}/>);
+    const element = TestUtils.renderIntoDocument(<Login general={{}} credentials={{}} credentialsActions={{}}/>);
     expect(element).toBeTruthy();
   });
 });

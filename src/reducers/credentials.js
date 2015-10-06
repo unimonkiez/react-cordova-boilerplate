@@ -2,22 +2,22 @@ import { CLEAR_CREDENTIALS, CHECK_CREDENTIALS, CHECK_CREDENTIALS_SUCCESS, CHECK_
 
 const initialState = {
   authenticated: false,
-  checkingToken: true,
+  checkingToken: false,
   loggingIn: false,
   hint: false
 };
 
-export default function todos(state = initialState, action) {
+export default function credentials(state = initialState, action) {
   const { type, hint } = action;
 
   switch (type) {
     case CLEAR_CREDENTIALS:
+      return initialState;
+    case CHECK_CREDENTIALS:
       return {
         ...initialState,
-        checkingToken: false
+        checkingToken: true
       };
-    case CHECK_CREDENTIALS:
-      return initialState;
     case CHECK_CREDENTIALS_SUCCESS:
       return {
         ...initialState,
@@ -32,22 +32,17 @@ export default function todos(state = initialState, action) {
     case ADD_CREDENTIALS:
       return {
         ...initialState,
-        loggingIn: true,
-        checkingToken: false
+        loggingIn: true
       };
     case ADD_CREDENTIALS_SUCCESS:
       return {
         ...initialState,
         authenticated: true,
-        loggingIn: false,
-        checkingToken: false
+        loggingIn: false
       };
     case ADD_CREDENTIALS_FAILURE:
       return {
         ...initialState,
-        authenticated: false,
-        loggingIn: false,
-        checkingToken: false,
         hint
       };
     default:

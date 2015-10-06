@@ -30,8 +30,9 @@ export class Login extends Component {
   }
   render() {
     const { general, credentials } = this.props;
-    const { checkingToken, loggingIn } = credentials;
-    const hideLogin = (!general.mounted) || checkingToken || loggingIn;
+    const { mounted } = general;
+    const { checkingToken, loggingIn, hint } = credentials;
+    const hideLogin = (!mounted) || checkingToken || loggingIn;
 
     return (
       <div style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', textAlign: 'center', backgroundColor: '#F7DF1E', color: 'black'}}>
@@ -43,7 +44,7 @@ export class Login extends Component {
             </span>
             <h1>TodoMVC example</h1>
           </div>
-          <div style={{maxHeight: hideLogin ? '0' : '146px', overflow: 'hidden', transition: 'max-height 0.5s ease-in-out'}}>
+          <div style={{maxHeight: hideLogin ? '0' : '149px', overflow: 'hidden', transition: 'max-height 0.5s ease-in-out'}}>
             <h1>Login</h1>
             <form onSubmit={::this.handleSubmit}>
               <div style={{paddingTop: '5px'}}>
@@ -51,7 +52,7 @@ export class Login extends Component {
               </div>
               <div style={{paddingTop: '5px'}}>
                 <input type="password" ref="password" placeholder="Password"/>
-                <div style={{height: '1em'}}>{credentials.hint && `Hint: ${credentials.hint}`}</div>
+                <div style={{height: '1em'}}>{hint && `Hint: ${hint}`}</div>
               </div>
               <div style={{paddingTop: '5px'}}>
                 <input type="submit" value="Login"/>

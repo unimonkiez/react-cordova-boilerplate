@@ -5,7 +5,7 @@
 # Redux DevTools TodoMVC example
 ![](http://s16.postimg.org/hje88sfkl/Screenshot_2015_09_14_18_04_50_1.png)
 
-![](http://s29.postimg.org/agjv6qi7r/Login.png)
+![](http://s23.postimg.org/tmgzg652j/2015_10_06_17_22_52_1_online_video_cutter.gif)
 
 ## Why cordova
 Cordova is really simple to build cross platform mobile applications for any of your needs, this boilerplate provides a great starting point for your next project, as it uses:

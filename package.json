@@ -1,6 +1,6 @@
 {
   "name": "react-cordova-boilerplate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TodoMVC example for react with development tools to build a cordova application",
   "repository": {
     "type": "git",

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { createStore, combineReducers, compose } from 'redux';
 import { devTools, persistState } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
@@ -26,7 +27,7 @@ class App extends Component {
     return (
       <div>
         <Provider store={store}>
-          {() => <AppRoute/> }
+          <AppRoute/>
         </Provider>
         { __DEV__ && <DebugPanel top right bottom>
           <DevTools store={store}
@@ -38,7 +39,7 @@ class App extends Component {
   }
 }
 
-React.render(
+ReactDOM.render(
   <App />,
   document.getElementById('app')
 );

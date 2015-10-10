@@ -88,7 +88,7 @@ module.exports = {
   },
   plugins: webpackPlugins.concat([
     new HtmlWebpackPlugin({
-      minify: __PROD__,
+      minify: {},
       title: 'TodoMVC app',
       bodyContent: (function() {
         if (__DEV__) {

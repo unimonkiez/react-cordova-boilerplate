@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import { createStore, combineReducers, compose } from 'redux';
 import { devTools, persistState } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
@@ -26,7 +27,7 @@ class App extends Component {
     return (
       <div>
         <Provider store={store}>
-          {() => <Login/> }
+          <Login/>
         </Provider>
         { __DEV__ && <DebugPanel top right bottom>
           <DevTools store={store}
@@ -38,4 +39,4 @@ class App extends Component {
   }
 }
 
-export default React.renderToString(React.createFactory(App)({}));
+export default ReactDOMServer.renderToString(React.createFactory(App)({}));

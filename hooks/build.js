@@ -5,7 +5,7 @@ module.exports = function(context) {
 
 
   var exec = require('child_process').exec;
-  var cmd = 'npm run build:prod';
+  var cmd = 'npm run build:cordova';
 
   exec(cmd, function(error, stdout, stderr) {
     if (error) {

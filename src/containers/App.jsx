@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component, PropTypes } from 'react';
 import { createStore, combineReducers, compose } from 'redux';
 import { devTools, persistState } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
@@ -21,6 +20,9 @@ if (module.hot) {
 }
 
 export default class App extends Component {
+  static propTypes = {
+    children: PropTypes.node
+  };
   render() {
     return (
       <div>

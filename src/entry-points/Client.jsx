@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../containers/App.jsx';
 import AppRoute from '../containers/AppRoute.jsx';

@@ -42,13 +42,8 @@ To style your html, simply inline style your DOM ([**here is why**](https://gith
 
 You can use [Radium](https://github.com/FormidableLabs/radium) (which is included) to easily add 'css like' event listeners to your components (like hover).
 
-Sass is included to complete some of the missing features that inline styles can't add like:
-* Fonts.
-* Animations (though transitions are possible and easy!).
-* third party css (like bootsrap?).
-* Possibly more I didn't came across.
-
-To use Sass simply import that file!
+Sass/CSS is included to complete some of the missing features or already written style you want to use.
+To use Sass/CSS simply import that file!
 
 ***custom-font.scss***
 

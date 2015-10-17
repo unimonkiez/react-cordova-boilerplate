@@ -34,7 +34,7 @@
       "__SOURCEMAP__": false,
       "__SSR__": true,
       "__DEVTOOLS__": false
-      },
+    },
     "__CORDOVA__": {
       "__MINIFICATION__": true,
       "__SOURCEMAP__": false,
@@ -72,6 +72,7 @@
     "karma-webpack": "^1.7.0",
     "memory-fs": "^0.2.0",
     "node-libs-browser": "^0.5.2",
+    "node-sass": "^3.3.3",
     "phantomjs": "^1.9.18",
     "radium": "^0.14.1",
     "raw-loader": "^0.5.1",

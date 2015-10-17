@@ -6,8 +6,8 @@ var extend = require('util')._extend;
 
 var args = process.argv.slice(2);
 var __PROD__ = args.indexOf('-p') !== -1;
-var __DEV__ = args.indexOf('-d') !== -1 && __PROD__ === false;
-var __CORDOVA__ = args.indexOf('-c') !== -1 && __DEBUG__ === false;
+var __CORDOVA__ = args.indexOf('-c') !== -1 && __PROD__ === false;
+var __DEV__ = __PROD__ === false && __CORDOVA__ === false;
 
 var package = require('./package.json');
 var enviroment = package.enviroments[__PROD__ ? '__PROD__' : __DEV__ ? '__DEV__' : __CORDOVA__ ? '__CORDOVA__' : ''];
@@ -53,6 +53,10 @@ var webpackModule = {
 var getServerString = function() {
   var MemoryFS = require("memory-fs");
   var fs = new MemoryFS();
+  var ssrGlobals = extend(globals, {
+    __CLIENT__: JSON.stringify(false),
+    __SERVER__: JSON.stringify(true)
+  });
   var serverConfig = {
     target: 'node',
     entry: './src/entry-points/Server.jsx',
@@ -60,12 +64,13 @@ var getServerString = function() {
       path: '/',
       filename: 'bundle.js'
     },
-    plugins: webpackPlugins.concat[new webpack.DefinePlugin(extend(globals, {
-      __CLIENT__: false,
-      __SERVER__: true
-    }))],
+    plugins: webpackPlugins,
     module: webpackModule
   };
+  // Define globals to be used in the app on serverside
+  for (var prop in ssrGlobals) {
+    GLOBAL[prop] = JSON.parse(globals[prop]);
+  }
 
   var sync = true;
   var data = null;
@@ -102,8 +107,8 @@ module.exports = {
   },
   plugins: webpackPlugins.concat([
     new webpack.DefinePlugin(extend(globals, {
-      __CLIENT__: true,
-      __SERVER__: false
+      __CLIENT__: JSON.stringify(true),
+      __SERVER__: JSON.stringify(false)
     })),
     new HtmlWebpackPlugin({
       minify: {},

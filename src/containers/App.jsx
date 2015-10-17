@@ -6,9 +6,6 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { Provider } from 'react-redux';
 import * as reducers from '../reducers';
 
-import AppRoute from '../containers/AppRoute.jsx';
-import Login from '../containers/Login.jsx';
-
 const finalCreateStore = compose(
   devTools(),
   persistState(__CLIENT__ ? window.location.href.match(/[?&]debug_session=([^&]+)\b/) : undefined)
@@ -28,7 +25,7 @@ export default class App extends Component {
     return (
       <div>
         <Provider store={store}>
-          {__CLIENT__ ? <AppRoute/> : <Login/>}
+          { this.props.children }
         </Provider>
         { __DEVTOOLS__ && <DebugPanel top right bottom>
           <DevTools store={store}

@@ -1,6 +1,8 @@
-www/*
-www/**.*
-!www/.gitkeep
 node_modules/
-plugins/
-platforms/
+
+config/cordova/plugins/
+config/cordova/platforms/
+config/cordova/www/*
+config/cordova/www/**.*
+!config/cordova/www/.gitkeep
+!config/cordova/www/config.xml

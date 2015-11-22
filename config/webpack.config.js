@@ -9,8 +9,8 @@ var __PROD__ = args.indexOf('-p') !== -1;
 var __CORDOVA__ = args.indexOf('-c') !== -1 && __PROD__ === false;
 var __DEV__ = __PROD__ === false && __CORDOVA__ === false;
 
-var package = require('./package.json');
-var enviroment = package.enviroments[__PROD__ ? '__PROD__' : __DEV__ ? '__DEV__' : __CORDOVA__ ? '__CORDOVA__' : ''];
+var package_file = require('../package.json');
+var enviroment = package_file.enviroments[__PROD__ ? '__PROD__' : __DEV__ ? '__DEV__' : __CORDOVA__ ? '__CORDOVA__' : ''];
 
 var __MINIFICATION__ = enviroment.__MINIFICATION__;
 var __SOURCEMAP__ = enviroment.__SOURCEMAP__;
@@ -101,7 +101,7 @@ module.exports = {
     './src/entry-points/Client.jsx'
   ],
   output: {
-    path: path.join(__dirname, 'www'),
+    path: path.join(__dirname, 'cordova/www'),
     filename: 'bundle.js',
     publicPath: ''
   },

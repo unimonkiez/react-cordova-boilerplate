@@ -7,6 +7,7 @@ delete webpackConfig.output;
 module.exports = function karmaConfig(config) {
   config.set({
     // ... normal karma configuration
+    basePath: '../',
     browsers: ['PhantomJS'],
     singleRun: true,
     files: [

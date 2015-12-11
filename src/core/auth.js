@@ -1,8 +1,4 @@
-import history from './history';
-
-let authenticated = false;
 const hint = 'password1';
-
 function pretendLoginRequest(email, pass, cb) {
   setTimeout(() => {
     if (pass === hint) {
@@ -34,32 +30,20 @@ function pretendTokenRequest(token, cb) {
     }
   }, 300);
 }
-export default {
-  getAuthenticated() {
-    return authenticated;
-  },
-  setAuthenticated(newAuthenticated) {
-    const prevAuthenticated = authenticated;
-    authenticated = newAuthenticated;
 
-    // Change url if authenticated have been changed from before
-    if (prevAuthenticated !== authenticated) {
-      history.pushState(null, '/');
-    }
-  },
+export default {
+  onChangeHandlers: [],
   login(email, pass, cb) {
     pretendLoginRequest(email, pass, res => {
       if (res.authenticated) {
-        this.setAuthenticated(true);
         localStorage.token = res.token;
         localStorage.time = res.time;
         if (cb) {
-          cb();
+          cb(true);
         }
       } else {
-        this.setAuthenticated(false);
         if (cb) {
-          cb(res.hint);
+          cb(false, res.hint);
         }
       }
     });
@@ -70,7 +54,6 @@ export default {
   },
 
   logout(cb) {
-    this.setAuthenticated(false);
     delete localStorage.token;
     if (cb) {
       cb(false);
@@ -79,27 +62,14 @@ export default {
 
   // If doesn't have token or login time has passed, do not validate the token against the server.
   loggedIn(cb) {
-    setTimeout(() => {
-      if (!localStorage.token || localStorage.time <= Date.now() - 1000 * 60) {
-        this.setAuthenticated(false);
-      } else {
-        pretendTokenRequest(localStorage.token, (res) => {
-          this.setAuthenticated(res.authenticated);
-        });
-      }
-      cb();
-    }, 2000);
-    return true;
-    // let isAsync = false;
-    // if (!localStorage.token || localStorage.time <= Date.now() - 1000 * 60) {
-    //   this.setAuthenticated(false);
-    // } else {
-    //   pretendTokenRequest(localStorage.token, (res) => {
-    //     this.setAuthenticated(res.authenticated);
-    //     cb();
-    //   });
-    //   isAsync = true;
-    // }
-    // return isAsync;
+    let authenticated;
+    if (!localStorage.token || localStorage.time <= Date.now() - 1000 * 60) {
+      authenticated = false;
+    } else {
+      pretendTokenRequest(localStorage.token, (res) => {
+        cb(res.authenticated);
+      });
+    }
+    return authenticated;
   }
 };

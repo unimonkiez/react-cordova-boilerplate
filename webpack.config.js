@@ -98,7 +98,7 @@ var getServerString = function() {
     require('deasync').sleep(100);
   }
 
-  return data;
+  return data.default;
 }
 
 module.exports = {

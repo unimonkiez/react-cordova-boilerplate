@@ -1,6 +1,4 @@
-www/*
-www/**.*
-!www/.gitkeep
+www/
 node_modules/
 plugins/
 platforms/

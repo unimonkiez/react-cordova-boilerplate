@@ -1,26 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as CredentialsActions from '../actions/CredentialsActions';
 import customFont from '../style/custom-font.scss';
 import auth from '../core/auth';
-
-import * as GeneralActions from '../actions/GeneralActions';
+import * as CredentialsActions from '../actions/CredentialsActions';
 
 export class Login extends Component {
   static propTypes = {
     route: PropTypes.object,
-    general: PropTypes.object,
     credentials: PropTypes.object,
-    credentialsActions: PropTypes.object,
-    generalActions: PropTypes.object
+    credentialsActions: PropTypes.object
   };
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      isMountedAndCreatedByRouter: false
+    }
+  }
   componentDidMount() {
-    // Chnage 'mounted' from false to true
+    // Chnage 'isMountedAndCreatedByRouter' from false to true
     // only when generated from router for the first time.
     // For animation effect
-    if (!this.props.general.mounted && this.props.route !== undefined) {
-      setTimeout(() => this.props.generalActions.mount());
+    if (this.props.route !== undefined) {
+      setTimeout(() => this.setState({ isMountedAndCreatedByRouter: true }));
     }
   }
   handleSubmit(e) {
@@ -32,8 +34,8 @@ export class Login extends Component {
     const email = this.refs.email.value;
     const password = this.refs.password.value;
 
-    auth.login(email, password, (hint) => {
-      if (auth.getAuthenticated()) {
+    auth.login(email, password, (authenticated, hint) => {
+      if (authenticated) {
         credentialsActions.addCredentialsSucess();
       } else {
         credentialsActions.addCredentialsFailure(hint);
@@ -42,9 +44,9 @@ export class Login extends Component {
   }
   render() {
     const { general, credentials } = this.props;
-    const { mounted } = general;
+    const { isMountedAndCreatedByRouter } = this.state;
     const { checkingToken, loggingIn, hint } = credentials;
-    const hideLogin = (!mounted) || checkingToken || loggingIn;
+    const hideLogin = (!isMountedAndCreatedByRouter) || checkingToken || loggingIn;
 
     return (
       <div style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', textAlign: 'center', backgroundColor: '#F7DF1E', color: 'black'}}>
@@ -78,6 +80,5 @@ export class Login extends Component {
 }
 
 export default connect(state => ({ general: state.general, credentials: state.credentials }), dispatch => ({
-  generalActions: bindActionCreators(GeneralActions, dispatch),
   credentialsActions: bindActionCreators(CredentialsActions, dispatch)
 }))(Login);

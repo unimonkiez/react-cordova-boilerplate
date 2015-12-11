@@ -17,7 +17,7 @@ class AppRoute extends Component {
     super(...args);
 
     this._authenticated = this.props.stores.credentials.authenticated;
-    this._isCheckingInitialLogIn;
+    this._isCheckingInitialLogIn = true;
     this._shouldRouterUpdate = true;
 
     const history = createHistory();
@@ -45,6 +45,9 @@ class AppRoute extends Component {
     const authenticated = auth.loggedIn(handleLoggedIn);
     if (authenticated !== undefined) { handleLoggedIn(authenticated); }
   }
+  componentDidMount() {
+    this.checkIfToStopAppRouterRenders();
+  }
   shouldComponentUpdate(nextProps) {
     // Each time props are about to update - switch url if needed
     this._authenticated = nextProps.stores.credentials.authenticated;
@@ -52,9 +55,6 @@ class AppRoute extends Component {
       this.state.history.pushState(null, '/');
     }
     return this._shouldRouterUpdate;
-  }
-  componentDidMount() {
-    this.checkIfToStopAppRouterRenders();
   }
   componentDidUpdate() {
     this.checkIfToStopAppRouterRenders();
@@ -90,6 +90,8 @@ class AppRoute extends Component {
     );
   }
 }
-export default connect(state => ({stores: state}), dispatch => ({ actions: {
-  credentialsActions: bindActionCreators(CredentialsActions, dispatch)
-}}))(AppRoute);
+export default connect(state => ({ stores: state }), dispatch => ({
+  actions: {
+    credentialsActions: bindActionCreators(CredentialsActions, dispatch)
+  }
+}))(AppRoute);

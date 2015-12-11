@@ -22,14 +22,16 @@ export default function todos(state = initialState, action) {
 
     case EDIT_TODO:
       return state.map(todo =>
-        todo.id === action.id ? {...todo, text: action.text
+        todo.id === action.id ? {
+          ...todo, text: action.text
         } :
         todo
       );
 
     case MARK_TODO:
       return state.map(todo =>
-        todo.id === action.id ? {...todo, marked: !todo.marked
+        todo.id === action.id ? {
+          ...todo, marked: !todo.marked
         } :
         todo
       );

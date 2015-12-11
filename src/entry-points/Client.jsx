@@ -5,7 +5,7 @@ import AppRoute from '../containers/AppRoute.jsx';
 
 ReactDOM.render(
   <App>
-  	<AppRoute/>
+    <AppRoute/>
   </App>,
   document.getElementById('app')
 );

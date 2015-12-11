@@ -32,7 +32,7 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    const {todo, markTodo, deleteTodo} = this.props;
+    const { todo, markTodo, deleteTodo } = this.props;
 
     let element;
     if (this.state.editing) {

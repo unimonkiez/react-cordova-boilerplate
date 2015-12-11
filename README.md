@@ -89,6 +89,6 @@ export default class ExampleComponent extends Component {
 Advantages:
 * Complete styling ability to go with inline style.
 * Easily use third party styles.
-* No globals - when including the style to the needed place when can minify the classes much further (like ```.a``` instead of ```.customFont```).
+* No globals - import style files and use the class (minifies signature - example ```.a``` instead of ```.customFont```)
 
 Sass style will be minified, bundled and included to the server rendered file.

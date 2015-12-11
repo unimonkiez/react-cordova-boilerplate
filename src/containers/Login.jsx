@@ -5,23 +5,35 @@ import * as CredentialsActions from '../actions/CredentialsActions';
 import customFont from '../style/custom-font.scss';
 import auth from '../core/auth';
 
+import * as GeneralActions from '../actions/GeneralActions';
+
 export class Login extends Component {
   static propTypes = {
+    route: PropTypes.object,
     general: PropTypes.object,
     credentials: PropTypes.object,
-    credentialsActions: PropTypes.object
+    credentialsActions: PropTypes.object,
+    generalActions: PropTypes.object
   };
+  componentDidMount() {
+    // Chnage 'mounted' from false to true
+    // only when generated from router for the first time.
+    // For animation effect
+    if (!this.props.general.mounted && this.props.route !== undefined) {
+      setTimeout(() => this.props.generalActions.mount());
+    }
+  }
   handleSubmit(e) {
     e.preventDefault();
 
     const { credentialsActions } = this.props;
     credentialsActions.addCredentials();
 
-    const email = this.refs.email.getDOMNode().value;
-    const password = this.refs.password.getDOMNode().value;
+    const email = this.refs.email.value;
+    const password = this.refs.password.value;
 
-    auth.login(email, password, (authenticated, hint) => {
-      if (authenticated) {
+    auth.login(email, password, (hint) => {
+      if (auth.getAuthenticated()) {
         credentialsActions.addCredentialsSucess();
       } else {
         credentialsActions.addCredentialsFailure(hint);
@@ -65,4 +77,7 @@ export class Login extends Component {
   }
 }
 
-export default connect(state => ({ general: state.general, credentials: state.credentials }), dispatch => ({ credentialsActions: bindActionCreators(CredentialsActions, dispatch) }))(Login);
+export default connect(state => ({ general: state.general, credentials: state.credentials }), dispatch => ({
+  generalActions: bindActionCreators(GeneralActions, dispatch),
+  credentialsActions: bindActionCreators(CredentialsActions, dispatch)
+}))(Login);

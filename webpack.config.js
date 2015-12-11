@@ -31,11 +31,18 @@ var webpackPlugins = [
 ];
 
 var webpackModule = {
-  loaders: [{
-    test: /\.jsx?$/,
-    loaders: ['react-hot', 'babel'],
-    exclude: /node_modules/
-  }, {
+  loaders: [
+  {
+    test: /\.js$/,
+    exclude: /(node_modules|bower_components)/,
+    loader: 'babel?presets[]=es2015,presets[]=stage-0'
+  },
+  {
+    test: /\.jsx$/,
+    exclude: /(node_modules|bower_components)/,
+    loader: 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0'
+  },
+  {
     test: /\.(png|jpg)$/,
     loader: 'url-loader?limit=8192'
   }, {
@@ -65,7 +72,8 @@ var getServerString = function() {
       filename: 'bundle.js'
     },
     plugins: webpackPlugins,
-    module: webpackModule
+    module: webpackModule,
+    exclude: /node_modules/
   };
   // Define globals to be used in the app on serverside
   for (var prop in ssrGlobals) {
@@ -95,11 +103,12 @@ var getServerString = function() {
 
 module.exports = {
   devtool: __SOURCEMAP__ ? 'source-map' : false,
-  entry: [
+  entry: ['./src/entry-points/Client.jsx'].concat(
+    // Don't add webpack dev server sources in cordova
+    __CORDOVA__ ? [] : [
     'webpack-dev-server/client?',
-    'webpack/hot/only-dev-server',
-    './src/entry-points/Client.jsx'
-  ],
+    'webpack/hot/only-dev-server'
+  ]),
   output: {
     path: path.join(__dirname, 'www'),
     filename: 'bundle.js',
@@ -122,5 +131,6 @@ module.exports = {
       warnings: false
     }
   })] : []),
-  module: webpackModule
+  module: webpackModule,
+  exclude: /node_modules/
 };

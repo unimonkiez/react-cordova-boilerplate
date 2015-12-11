@@ -7,13 +7,13 @@ import * as reducers from '../reducers';
 
 const finalCreateStore = compose(
   devTools(),
-  persistState(__CLIENT__ ? window.location.href.match(/[?&]debug_session=([^&]+)\b/) : undefined)
+  persistState(__SERVER__ ? undefined : window.location.href.match(/[?&]debug_session=([^&]+)\b/))
 )(createStore);
 
 const reducer = combineReducers(reducers);
 const store = finalCreateStore(reducer);
 
-if (module.hot) {
+if (!__CORDOVA__ && module.hot) {
   module.hot.accept('../reducers', () =>
     store.replaceReducer(combineReducers(require('../reducers')))
   );

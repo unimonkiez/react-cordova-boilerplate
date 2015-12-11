@@ -28,7 +28,7 @@ export class TodoApp extends Component {
     const { todos, todoActions } = this.props;
     return (
       <div>
-        <div style={{display: 'flex', 'justify-content': 'flex-end'}}>
+        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
         <button style={{marginTop: '5px'}} onClick={::this.handleLogout}>Logout</button>
         </div>
         <div style={style}>

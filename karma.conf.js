@@ -10,13 +10,15 @@ module.exports = function karmaConfig(config) {
     browsers: ['PhantomJS'],
     singleRun: true,
     files: [
-      'src/__tests__/**/*.js'
+      'src/__tests__/**/*.js',
+      'src/__tests__/**/*.jsx'
       // each file acts as entry point for the webpack configuration
     ],
 
     preprocessors: {
       // add webpack as preprocessor
-      'src/__tests__/**/*.js': ['webpack']
+      'src/__tests__/**/*.js': ['webpack'],
+      'src/__tests__/**/*.jsx': ['webpack'],
     },
     frameworks: ['phantomjs-shim', 'jasmine'],
     webpack: webpackConfig,

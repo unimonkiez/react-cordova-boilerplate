@@ -1,6 +1,6 @@
 {
   "name": "react-cordova-boilerplate",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "TodoMVC example for react with development tools to build a cordova application",
   "repository": {
     "type": "git",
@@ -43,7 +43,7 @@
       "__DEVTOOLS__": false
     }
   },
-  "homepage": "https://github.com/yuvalsaraf/react-cordova-boilerplate#readme",
+  "homepage": "https://github.com/unimonkiez/react-cordova-boilerplate#readme",
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.0.3",

@@ -35,12 +35,18 @@ var webpackModule = {
   {
     test: /\.js$/,
     exclude: /(node_modules|bower_components)/,
-    loader: 'babel?presets[]=es2015,presets[]=stage-0'
+    loader: 'babel',
+    query: {
+      presets: ['es2015', 'stage-0']
+    }
   },
   {
     test: /\.jsx$/,
     exclude: /(node_modules|bower_components)/,
-    loader: 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0'
+    loader: 'babel',
+    query: {
+      presets: ['es2015', 'stage-0', 'react', 'react-hmre']
+    }
   },
   {
     test: /\.(png|jpg)$/,

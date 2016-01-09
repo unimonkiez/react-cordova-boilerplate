@@ -36,9 +36,10 @@ export default class MainSection extends Component {
     if (todos.length > 0) {
       return (
         <input className={todoStyle['toggle-all']}
-               type="checkbox"
-               checked={markedCount === todos.length}
-               onChange={actions.markAll} />
+          type="checkbox"
+          checked={markedCount === todos.length}
+          onChange={actions.markAll}
+        />
       );
     }
   }
@@ -51,10 +52,11 @@ export default class MainSection extends Component {
     if (todos.length) {
       return (
         <Footer markedCount={markedCount}
-                unmarkedCount={unmarkedCount}
-                filter={filter}
-                onClearMarked={::this.handleClearMarked}
-                onShow={::this.handleShow} />
+          unmarkedCount={unmarkedCount}
+          filter={filter}
+          onClearMarked={::this.handleClearMarked}
+          onShow={::this.handleShow}
+        />
       );
     }
   }

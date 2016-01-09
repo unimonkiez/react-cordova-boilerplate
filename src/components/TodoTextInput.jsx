@@ -41,13 +41,14 @@ export default class TodoTextInput extends Component {
   render() {
     return (
       <input className={classnames({ [todoStyle.edit]: this.props.editing, [todoStyle['new-todo']]: this.props.newTodo })}
-             type="text"
-             placeholder={this.props.placeholder}
-             autoFocus="true"
-             value={this.state.text}
-             onBlur={::this.handleBlur}
-             onChange={::this.handleChange}
-             onKeyDown={::this.handleSubmit} />
+        type="text"
+        placeholder={this.props.placeholder}
+        autoFocus="true"
+        value={this.state.text}
+        onBlur={::this.handleBlur}
+        onChange={::this.handleChange}
+        onKeyDown={::this.handleSubmit}
+      />
     );
   }
 }

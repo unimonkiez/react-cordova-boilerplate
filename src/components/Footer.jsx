@@ -35,8 +35,9 @@ export default class Footer extends Component {
 
     return (
       <a className={classnames({ [todoStyle.selected]: filter === selectedFilter })}
-         style={{ cursor: 'hand' }}
-         onClick={() => onShow(filter)}>
+        style={{ cursor: 'hand' }}
+        onClick={() => onShow(filter)}
+      >
         {title}
       </a>
     );
@@ -47,7 +48,8 @@ export default class Footer extends Component {
     if (markedCount > 0) {
       return (
         <button className={todoStyle['clear-completed']}
-                onClick={onClearMarked} >
+          onClick={onClearMarked}
+        >
           Clear completed
         </button>
       );

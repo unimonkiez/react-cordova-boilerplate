@@ -30,9 +30,11 @@ export default class App extends Component {
           { this.props.children }
         </Provider>
         { __DEVTOOLS__ && <DebugPanel top right bottom>
-          <DevTools store={store}
-                    monitor={LogMonitor}
-                    visibleOnLoad={true} />
+          <DevTools
+            store={store}
+            monitor={LogMonitor}
+            visibleOnLoad={true}
+          />
         </DebugPanel> }
       </div>
     );

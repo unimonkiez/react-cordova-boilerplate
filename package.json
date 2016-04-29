@@ -25,22 +25,16 @@
   },
   "enviroments": {
     "__DEV__": {
-      "__MINIFICATION__": false,
-      "__SOURCEMAP__": true,
       "__SSR__": false,
       "__DEVTOOLS__": true
     },
     "__PROD__": {
-      "__MINIFICATION__": true,
-      "__SOURCEMAP__": false,
       "__SSR__": true,
       "__DEVTOOLS__": false
     },
     "__CORDOVA__": {
-      "__MINIFICATION__": true,
-      "__SOURCEMAP__": false,
       "__SSR__": true,
-      "__DEVTOOLS__": false
+      "__DEVTOOLS__": true
     }
   },
   "homepage": "https://github.com/unimonkiez/react-cordova-boilerplate#readme",
@@ -57,6 +51,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-runtime": "^6.3.13",
     "classnames": "^2.1.2",
+    "cross-env": "^1.0.7",
     "css-loader": "^0.23.0",
     "deasync": "^0.1.2",
     "eslint": "^1.3.1",
@@ -65,8 +60,9 @@
     "eslint-plugin-react": "^3.2.3",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.4",
-    "history": "1.17.x",
-    "html-webpack-plugin": "^1.6.1",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.16.0",
+    "imports-loader": "^0.6.5",
     "install": "^0.4.1",
     "jasmine": "^2.3.2",
     "jasmine-core": "^2.3.4",
@@ -75,7 +71,6 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-phantomjs-shim": "^1.1.1",
     "karma-webpack": "^1.7.0",
-    "memory-fs": "^0.3.0",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.3.3",
     "npm": "^3.5.1",
@@ -85,9 +80,11 @@
     "react": "^0.14",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
-    "react-router": "1.0.x",
+    "react-router": "^2.4.0",
     "redux": "^3.0.0",
-    "redux-devtools": "^2.1.5",
+    "redux-devtools": "^3.2.0",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
     "sass-loader": "^3.0.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.6",
@@ -95,12 +92,14 @@
     "webpack-dev-server": "^1.9.0"
   },
   "scripts": {
-    "build": "webpack -d",
-    "build:prod": "webpack -p",
-    "build:cordova": "webpack -c",
-    "start": "node server.js -d",
-    "start:prod": "node server.js -p",
+    "build": "webpack --progress",
+    "build:prod": "cross-env NODE_ENV=production npm run build",
+    "build:cordova": "cross-env NODE_ENV=production cross-env BUILD_TARGET=cordova npm run build",
+    "start": "webpack-dev-server --port 3000 --inline --hot  --progress --colors ",
+    "start:prod": "cross-env NODE_ENV=production npm run start",
     "lint": "eslint --ext .js,.jsx .",
-    "test": "karma start"
+    "test": "karma start",
+    "predeploy": "cross-env NODE_ENV=production cross-env BUILD_TARGET=cordova webpack --progress  --config ./webpack.example.config.js",
+    "deploy": "git add -f dist/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
   }
 }

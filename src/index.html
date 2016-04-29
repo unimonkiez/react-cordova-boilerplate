@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>{%= o.htmlWebpackPlugin.options.title %}</title>
-</head>
-
-<body>
-	<div id="app">{%# o.htmlWebpackPlugin.options.bodyContent %}</div>
-</body>
-
+  <head>
+      <title>TodoMVC app</title>
+  </head>
+  <body>
+  	<div id="app">${__SSR__ ? require('./entry-points/Server.jsx') : ''}</div>
+  </body>
 </html>

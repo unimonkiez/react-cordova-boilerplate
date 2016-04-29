@@ -1,2 +1,8 @@
-export { default as credentials } from './credentials';
-export { default as todos } from './todos';
+import { combineReducers } from 'redux';
+import todos from './todos';
+import credentials from './credentials';
+
+export default combineReducers({
+  todos,
+  credentials
+});

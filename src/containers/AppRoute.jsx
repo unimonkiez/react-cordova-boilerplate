@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Router, { Route } from 'react-router';
-import { createHistory } from 'history';
+import { Router, Route, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Login from './Login.jsx';
@@ -19,12 +18,6 @@ class AppRoute extends Component {
     this._authenticated = this.props.stores.credentials.authenticated;
     this._isCheckingInitialLogIn = true;
     this._shouldRouterUpdate = true;
-
-    const history = createHistory();
-
-    this.state = {
-      history
-    };
 
     const { credentialsActions } = this.props.actions;
     credentialsActions.checkCredentials();
@@ -52,7 +45,7 @@ class AppRoute extends Component {
     // Each time props are about to update - switch url if needed
     this._authenticated = nextProps.stores.credentials.authenticated;
     if (this.props.stores.credentials.authenticated !== this._authenticated) {
-      this.state.history.pushState(null, '/');
+      hashHistory.push('/');
     }
     return this._shouldRouterUpdate;
   }
@@ -65,24 +58,22 @@ class AppRoute extends Component {
       this._shouldRouterUpdate = false;
     }
   }
-  checkAuth(nextState, replaceState) {
+  checkAuth(nextState, replace) {
     if (!this._authenticated) {
-      replaceState({ nextPathname: nextState.location.pathname }, '/login');
+      replace('/login');
     }
   }
-  handleRedirect(nextState, replaceState) {
-    replaceState({ nextPathname: nextState.location.pathname }, this._authenticated ? '/main' : '/login');
+  handleRedirect(nextState, replace) {
+    replace(this._authenticated ? '/main' : '/login');
   }
 
   render() {
-    const { history } = this.state;
-
     if (this._isCheckingInitialLogIn) {
       return (<Login/>);
     }
 
     return (
-      <Router history={history}>
+      <Router history={hashHistory}>
         <Route path="/main" component={TodoApp} onEnter={::this.checkAuth}/>
         <Route path="/login" component={Login}/>
         <Route path="*" onEnter={::this.handleRedirect}/>

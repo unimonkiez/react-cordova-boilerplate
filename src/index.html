@@ -2,8 +2,10 @@
 <html>
   <head>
       <title>TodoMVC app</title>
+      <link href="style.css">
   </head>
   <body>
   	<div id="app">${__SSR__ ? require('./entry-points/Server.jsx') : ''}</div>
+    <script src="bundle.js"></script>
   </body>
 </html>

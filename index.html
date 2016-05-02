@@ -2,21 +2,118 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TodoMVC app</title>
+    <title>
+      Demo react-cordova-boilerplate
+    </title>
   </head>
   <style>
-  html, body {
-   margin: 0;
-   padding: 0;
-   height: 100%;
+  a {
+    text-decoration: none;
   }
-  iframe {
-    width: 100%;
-    height: 100%;
+  body {
+    background-color: #4CC2E4;
+  }
+  html, body {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: Georgia, Helvetica;
+    font-size: 17px;
+  }
+  .demo-container {
+    margin: 0 auto;
+    max-width: 750px;
+  }
+  .main {
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 50px 0;
+    padding-top: 20px;
+    text-align: center;
+    color: #fff;
+    font-family: 'Poiret One', cursive;
+  }
+  .mail a {
+    text-decoration: none;
+    color: #fff;
+  }
+  .tagline {
+    background-color: rgba(255, 255, 255, 0.2);
+    position: relative;
+    margin: 0;
+    padding: 8px 0 8px 0;
+  }
+  .tagline-text {
+    vertical-align: middle;
+  }
+  .fork {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .example {
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 50px 0;
+    padding: 20px;
+    color: #fff;
+  }
+  .example .tagline-text {
+    padding-left: 10px;
+  }
+  .example-1 .container {
+    padding-left: 155px;
+    position: relative;
+  }
+  .example-1 img {
+    height: 800px;
+  }
+  .example-1 iframe {
+    position: absolute;
+    top: 108px;
+    left: 193px;
+    height: 582px;
+    width: 322px;
   }
   </style>
   <body>
-    <iframe src="www/index.html">
-    </iframe>
+    <a class="fork" href="https://github.com/unimonkiez/react-cordova-boilerplate">
+      <img class="gh-fork" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" />
+    </a>
+    <div class="demo">
+      <div class="demo-container">
+        <div class="main">
+          <h1>
+            <a href="https://github.com/unimonkiez/react-cordova-boilerplate">
+              REACT CORDOVA BOILERPLATE
+            </a>
+          </h1>
+          <h3 class="tagline">
+            <span class="tagline-text">
+              Create an app using cordova and react!
+            </span>
+          </h3>
+        </div>
+        <div class="example example-1">
+          <h3 class="tagline">
+            <span class="tagline-text">
+              Try the app
+            </span>
+          </h3>
+          <div class="container">
+            <img src="resouces/iphone-template.png"/>
+            <iframe src="www/index.html" frameborder="0">
+            </iframe>
+          </div>
+        </div>
+        <div class="example example-2">
+          <a href="www/index.html">
+            <h3 class="tagline">
+              <span class="tagline-text">
+                Try the Dev server
+              </span>
+            </h3>
+          </a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

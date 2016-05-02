@@ -3,14 +3,14 @@
 [![devDependency Status](https://david-dm.org/unimonkiez/react-cordova-boilerplate/dev-status.svg)](https://david-dm.org/unimonkiez/react-cordova-boilerplate#info=devDependencies)
 [![npm version](https://badge.fury.io/js/react-cordova-boilerplate.svg)](http://badge.fury.io/js/react-cordova-boilerplate)
 # Redux DevTools TodoMVC example
-![](http://s16.postimg.org/hje88sfkl/Screenshot_2015_09_14_18_04_50_1.png)
+## Demo - click the image to try it
+[![Try it out](https://raw.githubusercontent.com/unimonkiez/react-cordova-boilerplate/master/resources/demo.jpg)](http://unimonkiez.github.io/react-cordova-boilerplate/)
 
 ![](http://s23.postimg.org/tmgzg652j/2015_10_06_17_22_52_1_online_video_cutter.gif)
 
 ## Why cordova
 Cordova is really simple to build cross platform mobile applications for any of your needs, this boilerplate provides a great starting point for your next project, as it uses:
-* Cordova
-* ES6
+* ES6 + some features from ES7
 * React
 * React router
 * Webpack

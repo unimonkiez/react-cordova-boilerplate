@@ -60,7 +60,6 @@
     "eslint-plugin-react": "^3.2.3",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.4",
-    "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.16.0",
     "imports-loader": "^0.6.5",
     "install": "^0.4.1",
@@ -71,6 +70,7 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-phantomjs-shim": "^1.1.1",
     "karma-webpack": "^1.7.0",
+    "memory-fs": "^0.3.0",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.3.3",
     "npm": "^3.5.1",
@@ -99,7 +99,7 @@
     "start:prod": "cross-env NODE_ENV=production npm run start",
     "lint": "eslint --ext .js,.jsx .",
     "test": "karma start",
-    "predeploy": "cross-env NODE_ENV=production cross-env BUILD_TARGET=cordova webpack --progress  --config ./webpack.example.config.js",
-    "deploy": "git add -f dist/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
+    "predeploy": "npm run build:cordova",
+    "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
   }
 }

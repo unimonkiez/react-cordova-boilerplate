@@ -3,7 +3,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const __PROD__ = process.env.NODE_ENV === 'production';
 const __CORDOVA__ = process.env.BUILD_TARGET === 'cordova';
@@ -32,19 +32,41 @@ const define = {
   __DEVTOOLS__: JSON.stringify(__DEVTOOLS__)
 };
 
-const extractIndexHtml = new ExtractTextPlugin('index.html');
-const extractStyle = new ExtractTextPlugin('style.css');
-
+let getServerString;
 const webpackConfig = {
   devtool: __DEV__ ? 'source-map' : false,
   devServer: {
     host: '0.0.0.0'
   },
+  entry: './src/entry-points/Client.jsx',
   output: {
     path: path.join(__dirname, 'www'),
     filename: 'bundle.js',
     publicPath: ''
   },
+  plugins: [
+    new webpack.DefinePlugin(Object.assign(define, {
+      __CLIENT__: JSON.stringify(true),
+      __SERVER__: JSON.stringify(false)
+    })),
+    new ExtractTextPlugin('style.css'),
+    new HtmlWebpackPlugin({
+      minify: {},
+      getAppContent: () => __SSR__ ? getServerString() : '',
+      template: './src/index.ejs', // Load a custom template
+      inject: 'body' // Inject all scripts into the body
+    })
+  ].concat(__PROD__ ? [
+    new webpack.optimize.UglifyJsPlugin({
+      output: {
+        comments: false
+      },
+      compress: {
+        warnings: false
+      },
+      sourceMap: false
+    })
+  ] : []),
   module: {
     loaders: [
       {
@@ -69,8 +91,12 @@ const webpackConfig = {
         }
       },
       {
-        test: /\.html$/,
-        loader: 'html?interpolate'
+        test: /\.(scss|css)$/,
+        loader: __PROD__ ? ExtractTextPlugin.extract(
+          'style',
+          'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+        )
+        : 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
       },
       {
         test: /\.(png|jpg)$/,
@@ -85,69 +111,56 @@ const webpackConfig = {
     ]
   }
 };
-module.exports = [
-  Object.assign(webpackConfig, {
-    devtool: false,
-    devServer: Object.assign(webpackConfig.devServer, {
-      hot: false
-    }),
-    entry: './src/index.html',
-    output: Object.assign(webpackConfig.output, {
-      filename: 'index.js'
+
+getServerString = () => {
+  const MemoryFS = require('memory-fs');
+  const fs = new MemoryFS();
+
+  const compiler = webpack(Object.assign(webpackConfig, {
+    entry: './src/entry-points/Server.jsx',
+    output: {
+      path: '/',
+      filename: 'bundle.js'
+    },
+    module: Object.assign(webpackConfig.module, {
+      loaders: webpackConfig.module.loaders.map(loaderObj => {
+        let returnedLoaderObj;
+        if (loaderObj.test.toString() === /\.(scss|css)$/.toString()) {
+          returnedLoaderObj = Object.assign(loaderObj, {
+            loader: 'css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!sass'
+          });
+        } else {
+          returnedLoaderObj = loaderObj;
+        }
+        return returnedLoaderObj;
+      })
     }),
     plugins: [
       new webpack.DefinePlugin(Object.assign(define, {
         __CLIENT__: JSON.stringify(false),
         __SERVER__: JSON.stringify(true)
-      })),
-      extractIndexHtml
-    ],
-    module: Object.assign(webpackConfig.module, {
-      loaders: webpackConfig.module.loaders.concat([
-        {
-          test: /\.html$/,
-          loader: extractIndexHtml.extract('html?interpolate')
-        },
-        {
-          test: /\.(scss|css)$/,
-          loader: 'css?-url!sass'
-        }
-      ])
-    })
-  }),
-  Object.assign(webpackConfig, {
-    entry: './src/entry-points/Client.jsx',
-    output: Object.assign(webpackConfig.output, {
-      filename: 'bundle.js'
-    }),
-    plugins: [
-      new webpack.DefinePlugin(Object.assign(define, {
-        __CLIENT__: JSON.stringify(true),
-        __SERVER__: JSON.stringify(false)
-      })),
-      extractStyle
-    ].concat(__PROD__ ? [
-      new webpack.optimize.UglifyJsPlugin({
-        output: {
-          comments: false
-        },
-        compress: {
-          warnings: false
-        },
-        sourceMap: false
-      })
-    ] : []),
-    module: Object.assign(webpackConfig.module, {
-      loaders: webpackConfig.module.loaders.concat([
-        {
-          test: /\.(scss|css)$/,
-          loader: __PROD__ ? extractStyle.extract(
-            'style',
-            'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
-          )
-          : 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
-        }
-      ])
-    })
-  })
-];
+      }))
+    ]
+  }));
+
+  let sync = true;
+  let data = null;
+  compiler.outputFileSystem = fs;
+  compiler.run(err => {
+    if (err) {
+      throw err;
+    }
+    const fileContent = fs.readFileSync('/bundle.js').toString('ascii');
+    // Using eval because we can't require from `memory-fs`
+    data = eval(fileContent); // eslint-disable-line no-eval
+    sync = false;
+  });
+
+  while (sync) {
+    require('deasync').sleep(100);
+  }
+
+  return data;
+};
+
+module.exports = webpackConfig;

@@ -1,6 +1,4 @@
-www/*
-www/**.*
-!www/.gitkeep
 node_modules/
 plugins/
 platforms/
+npm-debug.log

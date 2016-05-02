@@ -8,6 +8,6 @@ execSync(`npm version ${bump} --no-git-tag-version`, {
 });
 const version = require('../package.json').version;
 
-execSync(`git add package.json bower.json && git commit -m "v${version}" && git tag v${version}`, {
+execSync(`git add package.json bower.json && git commit -m "${version}" && git tag v${version}`, {
   stdio: [0, 1, 2]
 });

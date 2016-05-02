@@ -98,7 +98,7 @@
     "start": "webpack-dev-server --port 3000 --inline --hot  --progress --colors ",
     "start:prod": "cross-env NODE_ENV=production npm run start",
     "lint": "eslint --ext .js,.jsx .",
-    "test": "karma start",
+    "test": "cross-env NODE_ENV=production karma start",
     "predeploy": "npm run build:cordova",
     "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
   }

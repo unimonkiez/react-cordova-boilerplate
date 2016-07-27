@@ -66,10 +66,10 @@ export class Login extends Component {
             </h1>
             <form onSubmit={::this.handleSubmit} style={{ width: '200px', margin: 'auto' }}>
               <div style={{ paddingTop: '5px' }}>
-                <input type="text" ref="email" placeholder="Email" style={{ width: '100%', height: '25px' }}/>
+                <input type="text" ref="email" placeholder="Email" style={{ width: '100%', height: '25px' }} />
               </div>
               <div style={{ paddingTop: '5px' }}>
-                <input type="password" ref="password" placeholder="Password" style={{ width: '100%', height: '25px' }}/>
+                <input type="password" ref="password" placeholder="Password" style={{ width: '100%', height: '25px' }} />
                 <div style={{ height: '1em', color: '#383838', fontWeight: 400 }}>{hint && `Hint: ${hint}`}</div>
               </div>
               <div style={{ paddingTop: '5px' }}>

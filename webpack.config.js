@@ -4,6 +4,9 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const requireFromString = require('require-from-string');
+const MemoryFS = require('memory-fs');
+const deasync = require('deasync');
 
 const __PROD__ = process.env.NODE_ENV === 'production';
 const __CORDOVA__ = process.env.BUILD_TARGET === 'cordova';
@@ -32,16 +35,15 @@ const define = {
   __DEVTOOLS__: JSON.stringify(__DEVTOOLS__)
 };
 
-let getServerString;
+let getServerString = undefined;
 const webpackConfig = {
   devtool: __DEV__ ? 'source-map' : false,
-  devServer: {
-    host: '0.0.0.0'
+  entry: {
+    app: './src/entry-points/Client.jsx'
   },
-  entry: './src/entry-points/Client.jsx',
   output: {
     path: path.join(__dirname, 'www'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     publicPath: ''
   },
   plugins: [
@@ -49,10 +51,10 @@ const webpackConfig = {
       __CLIENT__: JSON.stringify(true),
       __SERVER__: JSON.stringify(false)
     })),
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       minify: {},
-      getAppContent: () => __SSR__ ? getServerString() : '',
+      getAppContent: () => (__SSR__ ? getServerString() : ''),
       template: './src/index.ejs', // Load a custom template
       inject: 'body' // Inject all scripts into the body
     })
@@ -113,14 +115,14 @@ const webpackConfig = {
 };
 
 getServerString = () => {
-  const MemoryFS = require('memory-fs');
   const fs = new MemoryFS();
 
   const compiler = webpack(Object.assign(webpackConfig, {
     entry: './src/entry-points/Server.jsx',
     output: {
       path: '/',
-      filename: 'bundle.js'
+      filename: 'bundle.js',
+      libraryTarget: 'umd'
     },
     module: Object.assign(webpackConfig.module, {
       loaders: webpackConfig.module.loaders.map(loaderObj => {
@@ -152,12 +154,12 @@ getServerString = () => {
     }
     const fileContent = fs.readFileSync('/bundle.js').toString('ascii');
     // Using eval because we can't require from `memory-fs`
-    data = eval(fileContent); // eslint-disable-line no-eval
+    data = requireFromString(fileContent);
     sync = false;
   });
 
   while (sync) {
-    require('deasync').sleep(100);
+    deasync.sleep(100);
   }
 
   return data;

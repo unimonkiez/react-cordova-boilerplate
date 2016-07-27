@@ -69,14 +69,14 @@ class AppRoute extends Component {
 
   render() {
     if (this._isCheckingInitialLogIn) {
-      return (<Login/>);
+      return (<Login />);
     }
 
     return (
       <Router history={hashHistory}>
-        <Route path="/main" component={TodoApp} onEnter={::this.checkAuth}/>
-        <Route path="/login" component={Login}/>
-        <Route path="*" onEnter={::this.handleRedirect}/>
+        <Route path="/main" component={TodoApp} onEnter={::this.checkAuth} />
+        <Route path="/login" component={Login} />
+        <Route path="*" onEnter={::this.handleRedirect} />
       </Router>
     );
   }

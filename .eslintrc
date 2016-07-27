@@ -4,15 +4,16 @@
   "env": {
     "browser": false,
     "node": true,
-    "jasmine": true,
+    "jasmine": false,
     "es6": true
   },
   "ecmaFeatures": {
     "modules": false
   },
   "rules": {
-    "strict": [2, "global"],
+    "strict": 0,
     no-undef: 2,
+    "max-len": [2, 200, 4],
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2,
@@ -22,8 +23,10 @@
     //"block-scoped-var": 0,
     // Temporarily disabled for test/* until babel/babel-eslint#33 is resolved
     "padded-blocks": 0,
-    "comma-dangle": 0, // not sure why airbnb turned this on. gross!
+    "comma-dangle": [2, "never"], // not sure why airbnb turned this on. gross!
+    "react/prefer-stateless-function": 0, // not sure why airbnb turned this on. gross!
     "id-length": 0, // not sure why airbnb turned this on. gross!
+    "no-underscore-dangle": 0,
     "no-console": 0,
     "no-alert": 0
   },

@@ -13,8 +13,8 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <div>
-          { this.props.children }
-          { __DEVTOOLS__ && <DevTools /> }
+          {this.props.children}
+          {__DEVTOOLS__ && <DevTools />}
         </div>
       </Provider>
     );

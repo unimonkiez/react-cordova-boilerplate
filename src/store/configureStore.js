@@ -16,11 +16,13 @@ export default initialState => {
   const store = createStore(rootReducer, initialState, __DEVTOOLS__ ? enhancer : undefined);
 
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
+  /* eslint-disable no-undef, global-require */
   if (module.hot) {
     module.hot.accept('../reducers', () =>
       store.replaceReducer(require('../reducers'))
     );
   }
+  /* eslint-enable no-undef, global-require */
 
   return store;
 };

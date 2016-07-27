@@ -34,7 +34,8 @@ export default class Footer extends Component {
     const { filter: selectedFilter, onShow } = this.props;
 
     return (
-      <a className={classnames({ [todoStyle.selected]: filter === selectedFilter })}
+      <a
+        className={classnames({ [todoStyle.selected]: filter === selectedFilter })}
         style={{ cursor: 'hand' }}
         onClick={() => onShow(filter)}
       >
@@ -47,13 +48,15 @@ export default class Footer extends Component {
     const { markedCount, onClearMarked } = this.props;
     if (markedCount > 0) {
       return (
-        <button className={todoStyle['clear-completed']}
+        <button
+          className={todoStyle['clear-completed']}
           onClick={onClearMarked}
         >
           Clear completed
         </button>
       );
     }
+    return undefined;
   }
 
   render() {

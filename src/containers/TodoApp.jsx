@@ -23,12 +23,12 @@ export class TodoApp extends Component {
     return (
       <div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button style={{ marginTop: '5px' }} onClick={::this.handleLogout}>Logout</button>
+          <button style={{ marginTop: '5px' }} onClick={::this.handleLogout}>Logout</button>
         </div>
         <section className={todoStyle.todoapp}>
           <div>
-            <Header {...todoActions}/>
-            <MainSection todos={todos} actions={todoActions}/>
+            <Header {...todoActions} />
+            <MainSection todos={todos} actions={todoActions} />
           </div>
         </section>
       </div>

@@ -152,7 +152,7 @@ getServerString = () => {
     if (err) {
       throw err;
     }
-    const fileContent = fs.readFileSync('/bundle.js').toString('ascii');
+    const fileContent = fs.readFileSync('/bundle.js').toString('utf-8');
     // Using eval because we can't require from `memory-fs`
     data = requireFromString(fileContent);
     sync = false;

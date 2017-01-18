@@ -1,8 +1,8 @@
 {
   "env": {
-    "browser": true,
+    "browser": false,
     "node": false,
-    "jasmine": false
+    "jasmine": true
   },
   "ecmaFeatures": {
     "modules": true

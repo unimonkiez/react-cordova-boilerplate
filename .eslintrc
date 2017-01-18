@@ -1,44 +1,29 @@
 {
+  "root": true,
   "parser": "babel-eslint",
-  "extends": "eslint-config-airbnb",
   "env": {
-    "browser": false,
     "node": true,
-    "jasmine": false,
-    "es6": true
+    "es6": true,
+    "browser": false
   },
+  "extends": "airbnb",
   "ecmaFeatures": {
     "modules": false
   },
   "rules": {
-    "strict": 0,
-    no-undef: 2,
-    "max-len": [2, 200, 4],
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/react-in-jsx-scope": 2,
-    "indent": [2, 2, {"SwitchCase": 1}],
-    "react/jsx-boolean-value": 0,
-    // Temporarirly disabled due to a possible bug in babel-eslint (todomvc example)
-    //"block-scoped-var": 0,
-    // Temporarily disabled for test/* until babel/babel-eslint#33 is resolved
-    "padded-blocks": 0,
-    "comma-dangle": [2, "never"], // not sure why airbnb turned this on. gross!
-    "react/prefer-stateless-function": 0, // not sure why airbnb turned this on. gross!
-    "id-length": 0, // not sure why airbnb turned this on. gross!
-    "no-underscore-dangle": 0,
+    "react/prefer-stateless-function": [0],
+    "import/extensions": [0],
+    "import/no-extraneous-dependencies": [2, {"devDependencies": true, "optionalDependencies": true}],
+    "arrow-parens": [2, "as-needed"],
+    "no-underscore-dangle": [2, { "allowAfterThis": true }],
     "no-console": 0,
-    "no-alert": 0
-  },
-  "plugins": [
-    "react"
-  ],
-  "globals": {
-    "__DEV__": false,
-    "__PROD__": false,
-    "__CORDOVA__": false,
-    "__DEVTOOLS__": false,
-    "__CLIENT__": false,
-    "__SERVER__": false
+    "comma-dangle": [2, "never"], // not sure why airbnb turned this on. gross!
+    "max-len": [2, 200, 4],
+    "no-else-return": 0,
+    "new-cap": 0,
+    "prefer-template": 0,
+    "arrow-body-style": 0,
+    "no-nested-ternary": 0,
+    "default-case": 0
   }
 }

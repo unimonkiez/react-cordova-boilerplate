@@ -81,8 +81,9 @@
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.2.0",
+    "whatwg-fetch": "^2.0.1"
   },
   "scripts": {
     "build": "node ./bin/build.js",

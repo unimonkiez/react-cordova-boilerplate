@@ -28,6 +28,11 @@ if (args.indexOf('-coverage') !== -1) {
 
 const isWatching = args.indexOf('-w') !== -1;
 
+const webpackConfig = getWebpackConfig({
+  isTest: true,
+  coveragePaths
+});
+
 const server = new Server({
   // ... normal karma configuration
   port,
@@ -59,10 +64,7 @@ const server = new Server({
       subdir: '.'
     }]
   },
-  webpack: getWebpackConfig({
-    isTest: true,
-    coveragePaths
-  }),
+  webpack: webpackConfig,
   webpackMiddleware: {
     noInfo: true
   }

@@ -38,7 +38,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
     entry: isTest ? undefined : {
       [`app${isProd ? '.min' : ''}`]: (
         isWebpackDevServer ? [`webpack-dev-server/client?http://localhost:${port}`, 'webpack/hot/dev-server'] : []
-      ).concat(path.join(rootPath, 'src', 'entry-points', isClientBuild ? 'client.js' : 'server.js'))
+      ).concat(path.join(rootPath, 'src', 'entry-points', isClientBuild ? 'client.jsx' : 'server.jsx'))
     },
     output: isTest ? undefined : {
       path: path.join(rootPath, 'www'),
@@ -95,14 +95,15 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.jsx?$/,
           enforce: isTest ? 'pre' : undefined,
           exclude: [/node_modules/].concat(isTest ? coveragePaths : []),
           use: [
             {
               loader: 'babel-loader',
               options: {
-                presets: ['es2015', 'stage-2']
+                presets: ['es2015', 'stage-2'],
+                plugins: ['transform-runtime']
               }
             }
           ]
@@ -115,7 +116,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['es2015', 'stage-2', 'react'].concat(isWebpackDevServer ? ['react-hmre'] : [])
+                presets: ['react'].concat(isWebpackDevServer ? ['react-hmre'] : [])
               }
             }
           ]

@@ -23,16 +23,6 @@
   "bugs": {
     "url": "https://github.com/unimonkiez/react-cordova-boilerplate/issues"
   },
-  "enviroments": {
-    "__DEV__": {
-      "__SSR__": false,
-      "__DEVTOOLS__": true
-    },
-    "__PROD__": {
-      "__SSR__": true,
-      "__DEVTOOLS__": false
-    }
-  },
   "homepage": "https://github.com/unimonkiez/react-cordova-boilerplate#readme",
   "dependencies": {},
   "devDependencies": {
@@ -41,10 +31,12 @@
     "babel-core": "^6.11.4",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-2": "^6.18.0",
+    "babel-runtime": "^6.20.0",
     "css-loader": "^0.26.1",
     "deasync": "^0.1.7",
     "eslint": "^3.13.1",
@@ -60,6 +52,7 @@
     "imports-loader": "^0.7.0",
     "inject-loader": "^3.0.0-beta3",
     "install": "^0.8.1",
+    "isparta-loader": "^2.0.0",
     "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",

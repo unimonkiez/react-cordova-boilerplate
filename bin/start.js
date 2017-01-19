@@ -7,8 +7,11 @@ const isProd = args.indexOf('-p') !== -1;
 const port = 8080;
 
 const webpackConfig = getWebpackConfig({
-  isWebpackDevServer: true,
   isProd,
+  globals: {
+    __DEVTOOLS__: !isProd
+  },
+  isWebpackDevServer: true,
   port
 });
 

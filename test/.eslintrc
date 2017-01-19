@@ -1,6 +1,6 @@
 {
   "env": {
-    "browser": false,
+    "browser": true,
     "node": false,
     "jasmine": true
   },
@@ -9,6 +9,7 @@
   },
   "extends": "../bin/webpack-eslint.js",
   "rules": {
-    "strict": [2, "never"]
+    "strict": [2, "never"],
+    "import/no-webpack-loader-syntax": 0
   }
 }

@@ -1,21 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import TodoTextInput from './TodoTextInput.jsx';
-import todoStyle from '../style/todo-style.scss';
+import todoStyle from 'src/style/todo-style.scss';
+import TodoTextInput from './todo-text-input.jsx';
 
 export default class TodoItem extends Component {
-  static propTypes = {
-    todo: PropTypes.object.isRequired,
-    editTodo: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
-    markTodo: PropTypes.func.isRequired
-  };
-
-  constructor(props, context) {
-    super(props, context);
+  componentWillMount() {
     this.state = {
       editing: false
     };
+    this.handleDoubleClick = this.handleDoubleClick.bind(this);
   }
 
   handleDoubleClick() {
@@ -40,7 +32,7 @@ export default class TodoItem extends Component {
         <TodoTextInput
           text={todo.text}
           editing={this.state.editing}
-          onSave={(text) => this.handleSave(todo.id, text)}
+          onSave={text => this.handleSave(todo.id, text)}
         />
       );
     } else {
@@ -52,7 +44,7 @@ export default class TodoItem extends Component {
             checked={todo.marked}
             onChange={() => markTodo(todo.id)}
           />
-          <label onDoubleClick={::this.handleDoubleClick}>
+          <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
           </label>
           <button
@@ -65,13 +57,19 @@ export default class TodoItem extends Component {
 
     return (
       <li
-        className={classnames({
-          completed: todo.marked,
-          editing: this.state.editing
-        })}
+        className={(`${todo.marked ? 'completed' : ''} ${this.state.editing ? 'editing' : ''}`).trim()}
       >
         {element}
       </li>
     );
   }
+}
+if (__DEV__) {
+  // Not needed or used in minified mode
+  TodoItem.propTypes = {
+    todo: PropTypes.object.isRequired,
+    editTodo: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired,
+    markTodo: PropTypes.func.isRequired
+  };
 }

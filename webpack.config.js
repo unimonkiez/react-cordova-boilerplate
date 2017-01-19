@@ -1,4 +1,4 @@
-'use strict';
+
 
 const webpack = require('webpack');
 const path = require('path');
@@ -35,7 +35,7 @@ const define = {
   __DEVTOOLS__: JSON.stringify(__DEVTOOLS__)
 };
 
-let getServerString = undefined;
+let getServerString;
 const webpackConfig = {
   devtool: __DEV__ ? 'source-map' : false,
   entry: {

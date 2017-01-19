@@ -2,18 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { Router, Route, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Login from './Login.jsx';
-import TodoApp from './TodoApp.jsx';
-import auth from '../core/auth';
-import * as CredentialsActions from '../actions/CredentialsActions';
+import auth from 'src/core/auth.js';
+import * as CredentialsActions from 'src/actions/credentials-actions.js';
+import Login from './login.jsx';
+import TodoApp from './todo-app.jsx';
 
-class AppRoute extends Component {
-  static propTypes = {
-    stores: PropTypes.object,
-    actions: PropTypes.object
-  };
-  constructor(...args) {
-    super(...args);
+class AppRouteComponent extends Component {
+  componentWillMount() {
+    this.checkAuth = this.checkAuth.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
 
     this._authenticated = this.props.stores.credentials.authenticated;
     this._isCheckingInitialLogIn = true;
@@ -22,7 +19,7 @@ class AppRoute extends Component {
     const { credentialsActions } = this.props.actions;
     credentialsActions.checkCredentials();
 
-    const handleLoggedIn = (authenticated) => {
+    const handleLoggedIn = authenticated => {
       this._isCheckingInitialLogIn = false;
       if (authenticated) {
         credentialsActions.checkCredentialsSucess();
@@ -74,15 +71,26 @@ class AppRoute extends Component {
 
     return (
       <Router history={hashHistory}>
-        <Route path="/main" component={TodoApp} onEnter={::this.checkAuth} />
+        <Route path="/main" component={TodoApp} onEnter={this.checkAuth} />
         <Route path="/login" component={Login} />
-        <Route path="*" onEnter={::this.handleRedirect} />
+        <Route path="*" onEnter={this.handleRedirect} />
       </Router>
     );
   }
 }
-export default connect(state => ({ stores: state }), dispatch => ({
+
+if (__DEV__) {
+  // Not needed or used in minified mode
+  AppRouteComponent.propTypes = {
+    stores: PropTypes.object,
+    actions: PropTypes.object
+  };
+}
+
+const AppRoute = connect(state => ({ stores: state }), dispatch => ({
   actions: {
     credentialsActions: bindActionCreators(CredentialsActions, dispatch)
   }
-}))(AppRoute);
+}))(AppRouteComponent);
+
+export default AppRoute;

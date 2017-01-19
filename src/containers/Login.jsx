@@ -1,18 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import customFont from '../style/custom-font.scss';
-import auth from '../core/auth';
-import * as CredentialsActions from '../actions/CredentialsActions';
+import customFont from 'src/style/custom-font.scss';
+import auth from 'src/core/auth.js';
+import * as CredentialsActions from 'src/actions/credentials-actions.js';
 
-export class Login extends Component {
-  static propTypes = {
-    route: PropTypes.object,
-    credentials: PropTypes.object,
-    credentialsActions: PropTypes.object
+class LoginComponent extends Component {
+  static defaultProps = {
+    route: undefined
   };
-  constructor(...args) {
-    super(...args);
+  componentWillMount() {
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       isMountedAndCreatedByRouter: false
     };
@@ -31,8 +29,8 @@ export class Login extends Component {
     const { credentialsActions } = this.props;
     credentialsActions.addCredentials();
 
-    const email = this.refs.email.value;
-    const password = this.refs.password.value;
+    const email = this._emailRef.value;
+    const password = this._passwordRef.value;
 
     auth.login(email, password, (authenticated, hint) => {
       if (authenticated) {
@@ -53,8 +51,8 @@ export class Login extends Component {
         <div style={{ position: 'relative', top: '50%', transform: 'translateY(-50%)' }}>
           <div>
             <span className={`${customFont.customFont} ${customFont.customFontJs}`} style={{ fontSize: '200px' }}>
-              <span className={customFont.path1}></span>
-              <span className={customFont.path2}></span>
+              <span className={customFont.path1} />
+              <span className={customFont.path2} />
             </span>
             <h1>
               TodoMVC example
@@ -64,12 +62,12 @@ export class Login extends Component {
             <h1 style={{ margin: '0', padding: '20px 0' }}>
               Login
             </h1>
-            <form onSubmit={::this.handleSubmit} style={{ width: '200px', margin: 'auto' }}>
+            <form onSubmit={this.handleSubmit} style={{ width: '200px', margin: 'auto' }}>
               <div style={{ paddingTop: '5px' }}>
-                <input type="text" ref="email" placeholder="Email" style={{ width: '100%', height: '25px' }} />
+                <input type="text" ref={ref => { this._emailRef = ref; }} placeholder="Email" style={{ width: '100%', height: '25px' }} />
               </div>
               <div style={{ paddingTop: '5px' }}>
-                <input type="password" ref="password" placeholder="Password" style={{ width: '100%', height: '25px' }} />
+                <input type="password" ref={ref => { this._passwordRef = ref; }} placeholder="Password" style={{ width: '100%', height: '25px' }} />
                 <div style={{ height: '1em', color: '#383838', fontWeight: 400 }}>{hint && `Hint: ${hint}`}</div>
               </div>
               <div style={{ paddingTop: '5px' }}>
@@ -85,6 +83,17 @@ export class Login extends Component {
   }
 }
 
-export default connect(state => ({ general: state.general, credentials: state.credentials }), dispatch => ({
+if (__DEV__) {
+  // Not needed or used in minified mode
+  LoginComponent.propTypes = {
+    route: PropTypes.object,
+    credentials: PropTypes.object.isRequired,
+    credentialsActions: PropTypes.object.isRequired
+  };
+}
+
+const Login = connect(state => ({ general: state.general, credentials: state.credentials }), dispatch => ({
   credentialsActions: bindActionCreators(CredentialsActions, dispatch)
-}))(Login);
+}))(LoginComponent);
+
+export default Login;

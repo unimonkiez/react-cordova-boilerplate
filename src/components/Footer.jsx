@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import classnames from 'classnames';
-import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from '../constants/TodoFilters';
-import todoStyle from '../style/todo-style.scss';
+import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from 'src/constants/todo-filters.js';
+import todoStyle from 'src/style/todo-style.scss';
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
@@ -10,14 +9,6 @@ const FILTER_TITLES = {
 };
 
 export default class Footer extends Component {
-  static propTypes = {
-    markedCount: PropTypes.number.isRequired,
-    unmarkedCount: PropTypes.number.isRequired,
-    filter: PropTypes.string.isRequired,
-    onClearMarked: PropTypes.func.isRequired,
-    onShow: PropTypes.func.isRequired
-  }
-
   renderTodoCount() {
     const { unmarkedCount } = this.props;
     const itemWord = unmarkedCount === 1 ? 'item' : 'items';
@@ -35,8 +26,9 @@ export default class Footer extends Component {
 
     return (
       <a
-        className={classnames({ [todoStyle.selected]: filter === selectedFilter })}
+        className={filter === selectedFilter ? todoStyle.selected : undefined}
         style={{ cursor: 'hand' }}
+        tabIndex={0}
         onClick={() => onShow(filter)}
       >
         {title}
@@ -74,4 +66,14 @@ export default class Footer extends Component {
       </footer>
     );
   }
+}
+if (__DEV__) {
+  // Not needed or used in minified mode
+  Footer.propTypes = {
+    markedCount: PropTypes.number.isRequired,
+    unmarkedCount: PropTypes.number.isRequired,
+    filter: PropTypes.string.isRequired,
+    onClearMarked: PropTypes.func.isRequired,
+    onShow: PropTypes.func.isRequired
+  };
 }

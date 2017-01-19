@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import TodoItem from './TodoItem.jsx';
-import Footer from './Footer.jsx';
-import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from '../constants/TodoFilters';
-import todoStyle from '../style/todo-style.scss';
+import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from 'src/constants/todo-filters.js';
+import todoStyle from 'src/style/todo-style.scss';
+import TodoItem from './todo-item.jsx';
+import Footer from './footer.jsx';
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
@@ -11,13 +11,10 @@ const TODO_FILTERS = {
 };
 
 export default class MainSection extends Component {
-  static propTypes = {
-    todos: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
-  };
-  constructor(props, context) {
-    super(props, context);
+  componentWillMount() {
     this.state = { filter: SHOW_ALL };
+    this.handleClearMarked = this.handleClearMarked.bind(this);
+    this.handleShow = this.handleShow.bind(this);
   }
 
   handleClearMarked() {
@@ -57,8 +54,8 @@ export default class MainSection extends Component {
           markedCount={markedCount}
           unmarkedCount={unmarkedCount}
           filter={filter}
-          onClearMarked={::this.handleClearMarked}
-          onShow={::this.handleShow}
+          onClearMarked={this.handleClearMarked}
+          onShow={this.handleShow}
         />
       );
     }
@@ -87,4 +84,11 @@ export default class MainSection extends Component {
       </section>
     );
   }
+}
+if (__DEV__) {
+  // Not needed or used in minified mode
+  MainSection.propTypes = {
+    todos: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+  };
 }

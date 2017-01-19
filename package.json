@@ -58,6 +58,7 @@
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
     "imports-loader": "^0.7.0",
+    "inject-loader": "^3.0.0-beta3",
     "install": "^0.8.1",
     "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
@@ -82,6 +83,7 @@
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
     "require-from-string": "^1.2.0",
+    "resolve-url-loader": "^1.6.1",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
@@ -97,7 +99,7 @@
     "start:prod": "node ./bin/start.js -- -p",
     "lint": "eslint --fix --ext .js,.jsx .",
     "test": "node ./bin/test.js",
-    "preupdate-demo": "npm run build",
-    "update-demo": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
+    "predeploy": "npm run build",
+    "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
   }
 }

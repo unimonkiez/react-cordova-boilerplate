@@ -17,7 +17,7 @@ function pretendLoginRequest(email, pass, cb) {
 }
 function pretendTokenRequest(token, cb) {
   setTimeout(() => {
-    if (!!token) {
+    if (token) {
       cb({
         authenticated: true,
         time: Date.now(),
@@ -41,10 +41,8 @@ export default {
         if (cb) {
           cb(true);
         }
-      } else {
-        if (cb) {
-          cb(false, res.hint);
-        }
+      } else if (cb) {
+        cb(false, res.hint);
       }
     });
   },
@@ -66,7 +64,7 @@ export default {
     if (!localStorage.token || localStorage.time <= Date.now() - 1000 * 60) {
       authenticated = false;
     } else {
-      pretendTokenRequest(localStorage.token, (res) => {
+      pretendTokenRequest(localStorage.token, res => {
         cb(res.authenticated);
       });
     }

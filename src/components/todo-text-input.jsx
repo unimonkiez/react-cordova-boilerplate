@@ -1,21 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import todoStyle from '../style/todo-style.scss';
+import todoStyle from 'src/style/todo-style.scss';
 
 export default class TodoTextInput extends Component {
-  static propTypes = {
-    onSave: PropTypes.func.isRequired,
-    text: PropTypes.string,
-    placeholder: PropTypes.string,
-    editing: PropTypes.bool,
-    newTodo: PropTypes.bool
-  };
-
-  constructor(props, context) {
-    super(props, context);
+  componentWillMount() {
     this.state = {
       text: this.props.text || ''
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   handleSubmit(e) {
@@ -41,15 +34,25 @@ export default class TodoTextInput extends Component {
   render() {
     return (
       <input
-        className={classnames({ [todoStyle.edit]: this.props.editing, [todoStyle['new-todo']]: this.props.newTodo })}
+        className={(`${this.props.editing ? todoStyle.edit : ''} ${this.props.newTodo ? todoStyle['new-todo'] : ''}`).trim()}
         type="text"
         placeholder={this.props.placeholder}
         autoFocus="true"
         value={this.state.text}
-        onBlur={::this.handleBlur}
-        onChange={::this.handleChange}
-        onKeyDown={::this.handleSubmit}
+        onBlur={this.handleBlur}
+        onChange={this.handleChange}
+        onKeyDown={this.handleSubmit}
       />
     );
   }
+}
+if (__DEV__) {
+  // Not needed or used in minified mode
+  TodoTextInput.propTypes = {
+    onSave: PropTypes.func.isRequired,
+    text: PropTypes.string,
+    placeholder: PropTypes.string,
+    editing: PropTypes.bool,
+    newTodo: PropTypes.bool
+  };
 }

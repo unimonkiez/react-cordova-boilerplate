@@ -95,7 +95,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.js$/,
           enforce: isTest ? 'pre' : undefined,
           exclude: [/node_modules/].concat(isTest ? coveragePaths : []),
           use: [
@@ -116,7 +116,8 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['react'].concat(isWebpackDevServer ? ['react-hmre'] : [])
+                presets: ['es2015', 'stage-2', 'react'].concat(isWebpackDevServer ? ['react-hmre'] : []),
+                plugins: ['transform-runtime']
               }
             }
           ]

@@ -7,8 +7,8 @@
   "ecmaFeatures": {
     "modules": true
   },
-  globals: {
-    __DEVTOOLS__: false
+  "globals": {
+    "__DEVTOOLS__": false
   },
   "extends": "../bin/webpack-eslint.js",
   "rules": {

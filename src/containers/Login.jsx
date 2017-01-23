@@ -58,7 +58,7 @@ class LoginComponent extends Component {
               TodoMVC example
             </h1>
           </div>
-          <div style={{ maxHeight: hideLogin ? '0' : '175px', overflow: 'hidden', transition: 'max-height 0.5s ease-in-out' }}>
+          <div style={{ maxHeight: hideLogin ? '0' : '195px', overflow: 'hidden', transition: 'max-height 0.5s ease-in-out' }}>
             <h1 style={{ margin: '0', padding: '20px 0' }}>
               Login
             </h1>

@@ -39,7 +39,7 @@ const server = new Server({
   browsers: ['PhantomJS'],
   singleRun: !isWatching,
   files: [
-    'node_modules/babel-polyfill/dist/polyfill.js'
+    //'node_modules/babel-polyfill/dist/polyfill.js'
   ].concat(testBundles),
   preprocessors: [].concat(testBundles).reduce((obj, file) => (
     Object.assign(obj, {

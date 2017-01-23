@@ -203,40 +203,23 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
       ]
       .concat(isTest ? [
         { // `isparta` all the code We want to be in the coverage report
-          test: /\.js$/,
+          test: /\.jsx?$/,
           enforce: 'pre',
           include: coveragePaths,
           use: [
             {
-              loader: 'isparta-loader',
-              options: {
-                embedSource: true,
-                noAutoWrap: true,
-                babel: {
-                  presets: ['es2015', 'stage-2', 'react']
-                }
-              }
-            }
-          ]
-        },
-        {
-          test: /\.jsx$/,
-          enforce: 'pre',
-          include: coveragePaths,
-          use: [
-            {
-              loader: 'isparta-loader',
-              options: {
-                embedSource: true,
-                noAutoWrap: true,
-                babel: {
-                  presets: ['es2015', 'stage-2']
-                }
-              }
+              loader: 'isparta-loader'
             }
           ]
         }
       ] : [])
+    },
+    isparta: {
+      embedSource: true,
+      noAutoWrap: true,
+      babel: {
+        presets: ['es2015', 'stage-2', 'react']
+      }
     },
     resolve: {
       modules: [

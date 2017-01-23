@@ -24,7 +24,8 @@
     "url": "https://github.com/unimonkiez/react-cordova-boilerplate/issues"
   },
   "homepage": "https://github.com/unimonkiez/react-cordova-boilerplate#readme",
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "autoprefixer-loader": "^3.2.0",
@@ -63,6 +64,7 @@
     "karma-phantomjs-shim": "^1.4.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.1",
+    "lodash": "^4.2.0",
     "memory-fs": "^0.4.1",
     "node-sass": "^4.3.0",
     "phantomjs": "^2.1.7",

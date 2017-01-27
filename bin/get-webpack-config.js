@@ -124,47 +124,51 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         },
         {
           test: /\.css$/,
-          use: [
-            ExtractTextPlugin.extract({
-              loader: 'to-string-loader',
-              fallbackLoader: 'style-loader'
-            }),
-            {
-              loader: 'css-loader'
-            },
-            {
-              loader: 'autoprefixer-loader',
-              options: {
-                browsers: 'last 2 version'
+          use: ExtractTextPlugin.extract({
+            loader: [
+              {
+                loader: 'to-string-loader'
+              },
+              {
+                loader: 'css-loader'
+              },
+              {
+                loader: 'autoprefixer-loader',
+                options: {
+                  browsers: 'last 2 version'
+                }
               }
-            }
-          ]
+            ],
+            fallbackLoader: 'style-loader'
+          })
         }, {
           test: /\.scss$/,
-          use: [
-            ExtractTextPlugin.extract({
-              loader: 'to-string-loader',
-              fallbackLoader: 'style-loader'
-            }),
-            {
-              loader: 'css-loader'
-            },
-            {
-              loader: 'autoprefixer-loader',
-              options: {
-                browsers: 'last 2 version'
+          use: ExtractTextPlugin.extract({
+            loader: [
+              {
+                loader: 'to-string-loader'
+              },
+              {
+                loader: 'css-loader'
+              },
+              {
+                loader: 'autoprefixer-loader',
+                options: {
+                  browsers: 'last 2 version'
+                }
+              },
+              {
+                loader: 'resolve-url-loader',
+                options: {
+                  fail: true
+                }
+              },
+              {
+                loader: 'sass-loader'
               }
-            },
-            {
-              loader: 'resolve-url-loader',
-              options: {
-                fail: true
-              }
-            },
-            {
-              loader: 'sass-loader'
-            }
-          ]
+            ],
+            fallbackLoader: 'style-loader'
+          })
         }, {
           test: /\.woff(2)?$/,
           use: [
@@ -208,18 +212,18 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
           include: coveragePaths,
           use: [
             {
-              loader: 'isparta-loader'
+              loader: 'isparta-loader',
+              options: {
+                embedSource: true,
+                noAutoWrap: true,
+                babel: {
+                  presets: ['es2015', 'stage-2', 'react']
+                }
+              }
             }
           ]
         }
       ] : [])
-    },
-    isparta: {
-      embedSource: true,
-      noAutoWrap: true,
-      babel: {
-        presets: ['es2015', 'stage-2', 'react']
-      }
     },
     resolve: {
       modules: [

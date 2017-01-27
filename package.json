@@ -89,12 +89,19 @@
   },
   "scripts": {
     "build": "node ./bin/build.js",
+    "build:dev": "npm run build -- -w",
     "build:prod": "npm run build -- -p",
-    "build:cordova": "npm run build:prod -- -c",
+    "build:prod:dev": "npm run build -- -p -w",
+    "build:dev:prod": "npm run build:prod:dev",
     "start": "node ./bin/start.js",
     "start:prod": "node ./bin/start.js -- -p",
     "lint": "eslint --fix --ext .js,.jsx .",
     "test": "node ./bin/test.js",
+    "test:coveralls": "npm test -- -coverageToLcov",
+    "test:dev": "npm test -- -w",
+    "test:coverage": "npm test -- -coverage",
+    "test:coverage:dev": "npm test -- -coverage -w",
+    "test:dev:coverage": "npm run test:coverage:dev",
     "predeploy": "npm run build",
     "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
   }

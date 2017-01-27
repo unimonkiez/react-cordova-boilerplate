@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react';
-import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from 'src/constants/todo-filters.js';
+import * as todoFilters from 'src/constants/todo-filters.js';
 import todoStyle from 'src/style/todo-style.scss';
+
+const { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } = todoFilters;
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
@@ -72,7 +74,7 @@ if (__DEV__) {
   Footer.propTypes = {
     markedCount: PropTypes.number.isRequired,
     unmarkedCount: PropTypes.number.isRequired,
-    filter: PropTypes.string.isRequired,
+    filter: PropTypes.oneOf(Object.keys(todoFilters).map(k => todoFilters[k])).isRequired,
     onClearMarked: PropTypes.func.isRequired,
     onShow: PropTypes.func.isRequired
   };

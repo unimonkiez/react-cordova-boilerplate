@@ -24,8 +24,7 @@
     "url": "https://github.com/unimonkiez/react-cordova-boilerplate/issues"
   },
   "homepage": "https://github.com/unimonkiez/react-cordova-boilerplate#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "autoprefixer-loader": "^3.2.0",
@@ -47,7 +46,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
-    "extract-text-webpack-plugin": "^2.0.0-beta.5",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
     "imports-loader": "^0.7.0",
@@ -89,19 +88,19 @@
   },
   "scripts": {
     "build": "node ./bin/build.js",
-    "build:dev": "npm run build -- -w",
+    "build:watch": "npm run build -- -w",
     "build:prod": "npm run build -- -p",
-    "build:prod:dev": "npm run build -- -p -w",
-    "build:dev:prod": "npm run build:prod:dev",
+    "build:prod:watch": "npm run build -- -p -w",
+    "build:watch:prod": "npm run build:prod:watch",
     "start": "node ./bin/start.js",
     "start:prod": "node ./bin/start.js -- -p",
     "lint": "eslint --fix --ext .js,.jsx .",
     "test": "node ./bin/test.js",
     "test:coveralls": "npm test -- -coverageToLcov",
-    "test:dev": "npm test -- -w",
+    "test:watch": "npm test -- -w",
     "test:coverage": "npm test -- -coverage",
-    "test:coverage:dev": "npm test -- -coverage -w",
-    "test:dev:coverage": "npm run test:coverage:dev",
+    "test:coverage:watch": "npm test -- -coverage -w",
+    "test:watch:coverage": "npm run test:coverage:watch",
     "predeploy": "npm run build",
     "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
   }

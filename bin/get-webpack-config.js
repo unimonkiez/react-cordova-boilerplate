@@ -125,7 +125,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
-            loader: [
+            use: [
               {
                 loader: 'to-string-loader'
               },
@@ -139,12 +139,12 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
                 }
               }
             ],
-            fallbackLoader: 'style-loader'
+            fallback: 'style-loader'
           })
         }, {
           test: /\.scss$/,
           use: ExtractTextPlugin.extract({
-            loader: [
+            use: [
               {
                 loader: 'to-string-loader'
               },
@@ -167,7 +167,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
                 loader: 'sass-loader'
               }
             ],
-            fallbackLoader: 'style-loader'
+            fallback: 'style-loader'
           })
         }, {
           test: /\.woff(2)?$/,

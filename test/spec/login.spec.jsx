@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginInjector from 'inject-loader!src/containers/login.jsx';
-import { renderIntoDocument } from 'test/helper/react.jsx';
+import reactHelper from 'test/helper/react.jsx';
 import getReactReduxMock from 'test/mock/react-redux.js';
 
 describe('Login', () => {
@@ -10,10 +10,10 @@ describe('Login', () => {
     reactReduxMock = getReactReduxMock();
     Login = LoginInjector({
       'react-redux': reactReduxMock
-    });
+    }).default;
   });
   it('renders without errors', done => {
-    renderIntoDocument(<Login general={{}} credentials={{}} credentialsActions={{}} />, (renderError, { instance }) => {
+    reactHelper.renderIntoDocument(<Login general={{}} credentials={{}} credentialsActions={{}} />, ({ instance }) => {
       expect(instance).toBeTruthy();
       done();
     });

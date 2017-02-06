@@ -56,6 +56,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
           __PROD__: JSON.stringify(isProd),
           __DEV__: JSON.stringify(!isProd),
           __DEVSERVER__: JSON.stringify(isWebpackDevServer),
+          __DEVTOOLS__: JSON.stringify(isWebpackDevServer),
           __CLIENT__: JSON.stringify(isClientBuild),
           __SERVER__: JSON.stringify(!isClientBuild),
           'process.env': {

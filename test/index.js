@@ -7,6 +7,9 @@ testsContext.keys().forEach(testsContext);
 
 // require all `src/**/*.js`
 const componentsContext = require.context('../src/', true, /\.jsx?$/);
-componentsContext.keys().forEach(componentsContext);
+componentsContext
+  .keys()
+  .filter(filePath => filePath.startsWith('src/entry-points/'))
+  .forEach(componentsContext);
 
 /* eslint-enable no-undef */

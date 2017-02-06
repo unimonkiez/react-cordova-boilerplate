@@ -2,24 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export default {
-  renderIntoDocument(Component, cb) {
+  renderIntoDocument(Element, cb) {
     const div = document.createElement('div');
 
-    let instance;
-
     try {
+      let instance;
       ReactDOM.render(
-        React.cloneElement(<Component />, { ref: ref => { instance = ref; } }),
+        React.cloneElement(Element, { ref: ref => { instance = ref; } }),
         div,
         () => {
-          cb(undefined, {
+          cb({
             instance,
             div
           });
         }
       );
     } catch (e) {
-      cb(e);
+      throw e
     }
   }
 };

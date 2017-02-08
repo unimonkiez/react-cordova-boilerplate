@@ -55,7 +55,7 @@ const webpackConfig = {
     new HtmlWebpackPlugin({
       minify: {},
       getAppContent: () => (__SSR__ ? getServerString() : ''),
-      template: './src/index.ejs', // Load a custom template
+      template: __CORDOVA__ ? './src/indexcordova.ejs' : './src/index.ejs', // Load a custom template
       inject: 'body' // Inject all scripts into the body
     })
   ].concat(__PROD__ ? [

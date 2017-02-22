@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <meta charset="utf-8">
-      <title>TodoMVC app</title>
-  </head>
-  <body>
-  	<div id="app"><%= htmlWebpackPlugin.options.getAppContent() %></div>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>TodoMVC app</title>
+  <% if(__CORDOVA__) { %><script src="cordova.js"></script><% } %>
+</head>
+<body>
+  <div id="app">
+    <%= htmlWebpackPlugin.options.getAppContent() %>
+  </div>
+</body>
 </html>

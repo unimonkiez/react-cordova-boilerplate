@@ -97,8 +97,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
       rules: [
         {
           test: /\.js$/,
-          enforce: isTest ? 'pre' : undefined,
-          exclude: [/node_modules/].concat(isTest ? coveragePaths : []),
+          exclude: /node_modules/,
           use: [
             {
               loader: 'babel-loader',
@@ -111,8 +110,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         },
         {
           test: /\.jsx$/,
-          enforce: isTest ? 'pre' : undefined,
-          exclude: [/node_modules/].concat(isTest ? coveragePaths : []),
+          exclude: /node_modules/,
           use: [
             {
               loader: 'babel-loader',
@@ -127,9 +125,6 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             use: [
-              {
-                loader: 'to-string-loader'
-              },
               {
                 loader: 'css-loader'
               },
@@ -146,9 +141,6 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
           test: /\.scss$/,
           use: ExtractTextPlugin.extract({
             use: [
-              {
-                loader: 'to-string-loader'
-              },
               {
                 loader: 'css-loader'
               },
@@ -207,19 +199,15 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         }
       ]
       .concat(isTest ? [
-        { // `isparta` all the code We want to be in the coverage report
-          test: /\.jsx?$/,
+        { // `istanbul-instrumenter` all the code We want to be in the coverage report
+          test: /\.(js|jsx)$/,
           enforce: 'pre',
           include: coveragePaths,
           use: [
             {
-              loader: 'isparta-loader',
+              loader: 'istanbul-instrumenter-loader',
               options: {
-                embedSource: true,
-                noAutoWrap: true,
-                babel: {
-                  presets: ['es2015', 'stage-2', 'react']
-                }
+                esModules: true
               }
             }
           ]

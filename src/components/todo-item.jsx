@@ -57,7 +57,7 @@ export default class TodoItem extends Component {
 
     return (
       <li
-        className={(`${todo.marked ? 'completed' : ''} ${this.state.editing ? 'editing' : ''}`).trim()}
+        className={(`${todo.marked ? todoStyle.completed : ''} ${this.state.editing ? todoStyle.editing : ''}`).trim()}
       >
         {element}
       </li>

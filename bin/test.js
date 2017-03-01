@@ -39,30 +39,31 @@ const server = new Server({
   browsers: ['PhantomJS'],
   singleRun: !isWatching,
   files: [
-    //'node_modules/babel-polyfill/dist/polyfill.js'
+    // 'node_modules/babel-polyfill/dist/polyfill.js'
   ].concat(testBundles),
   preprocessors: [].concat(testBundles).reduce((obj, file) => (
     Object.assign(obj, {
       [file]: ['webpack', 'sourcemap']
     })
   ), {}),
-  plugins: ['karma-webpack', 'karma-jasmine', 'karma-nyan-reporter', 'karma-coverage', 'karma-sourcemap-loader', 'karma-phantomjs-launcher', 'karma-phantomjs-shim'],
+  plugins: ['karma-webpack', 'karma-jasmine', 'karma-nyan-reporter', 'karma-phantomjs-launcher', 'karma-phantomjs-shim', 'karma-coverage-istanbul-reporter'],
   frameworks: ['phantomjs-shim', 'jasmine'],
-  reporters: [
-    mode === MODE.coverageToLcov ? 'dots' : 'nyan' // Usually running in ci to produce lcov for coveralls, nyan is annoying in ci log
-  ].concat(
-    [MODE.coverage, MODE.coverageToLcov].indexOf(mode) !== -1 ? ['coverage'] : []
+  reporters: (mode === MODE.coverageToLcov ? ['nyan'] : []).concat( // Nyan is annoying in CI log
+    [MODE.coverage, MODE.coverageToLcov].indexOf(mode) !== -1 ? ['coverage-istanbul'] : []
   ),
   // reporter options
   nyanReporter: {
     suppressErrorHighlighting: true
   },
-  coverageReporter: {
+  coverageIstanbulReporter: {
+    reports: mode === MODE.coverageToLcov ? ['lcovonly'] : ['html'],
     dir: 'coverage/',
-    reporters: [{
-      type: mode === MODE.coverageToLcov ? 'lcov' : 'html', // lcov or lcovonly are required for generating lcov.info files, html for local coverage report
-      subdir: '.'
-    }]
+    fixWebpackSourcePaths: true,
+    'report-config': {
+      html: {
+        subdir: 'html'
+      }
+    }
   },
   webpack: webpackConfig,
   webpackMiddleware: {

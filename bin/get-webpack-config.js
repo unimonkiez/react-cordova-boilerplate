@@ -127,12 +127,6 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
             use: [
               {
                 loader: 'css-loader'
-              },
-              {
-                loader: 'autoprefixer-loader',
-                options: {
-                  browsers: 'last 2 version'
-                }
               }
             ],
             fallback: 'style-loader'
@@ -143,12 +137,6 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
             use: [
               {
                 loader: 'css-loader'
-              },
-              {
-                loader: 'autoprefixer-loader',
-                options: {
-                  browsers: 'last 2 version'
-                }
               },
               {
                 loader: 'resolve-url-loader',

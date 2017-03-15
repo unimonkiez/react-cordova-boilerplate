@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, hashHistory as history } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import auth from 'src/core/auth.js';
@@ -42,7 +42,7 @@ class AppRouteComponent extends Component {
     // Each time props are about to update - switch url if needed
     this._authenticated = nextProps.stores.credentials.authenticated;
     if (this.props.stores.credentials.authenticated !== this._authenticated) {
-      hashHistory.push('/');
+      history.push('/');
     }
     return this._shouldRouterUpdate;
   }
@@ -70,7 +70,7 @@ class AppRouteComponent extends Component {
     }
 
     return (
-      <Router history={hashHistory}>
+      <Router history={history}>
         <Route path="/main" component={TodoApp} onEnter={this.checkAuth} />
         <Route path="/login" component={Login} />
         <Route path="*" onEnter={this.handleRedirect} />

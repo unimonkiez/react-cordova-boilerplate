@@ -34,6 +34,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
   } = privateOptions;
 
   return ({
+    bail: true,
     devtool: isTest ? 'inline-source-map' : (isProd ? false : 'source-map'),
     entry: isTest ? undefined : {
       [`app${isProd ? '.min' : ''}`]: (
@@ -187,19 +188,16 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         }
       ]
       .concat(isTest ? [
-        { // `istanbul-instrumenter` all the code We want to be in the coverage report
-          test: /\.(js|jsx)$/,
-          enforce: 'pre',
-          include: coveragePaths,
-          use: [
-            {
-              loader: 'istanbul-instrumenter-loader',
-              options: {
-                esModules: true
-              }
-            }
-          ]
-        }
+        // { // `istanbul-instrumenter` all the code We want to be in the coverage report
+        //   test: /\.(js|jsx)$/,
+        //   enforce: 'post',
+        //   include: coveragePaths,
+        //   use: [
+        //     {
+        //       loader: 'istanbul-instrumenter-loader?dd'
+        //     }
+        //   ]
+        // }
       ] : [])
     },
     resolve: {

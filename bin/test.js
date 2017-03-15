@@ -46,7 +46,14 @@ const server = new Server({
       [file]: ['webpack', 'sourcemap']
     })
   ), {}),
-  plugins: ['karma-webpack', 'karma-jasmine', 'karma-nyan-reporter', 'karma-phantomjs-launcher', 'karma-phantomjs-shim', 'karma-coverage-istanbul-reporter'],
+  plugins: [
+    'karma-webpack',
+    'karma-jasmine',
+    'karma-nyan-reporter',
+    'karma-phantomjs-launcher',
+    'karma-phantomjs-shim',
+    'karma-coverage-istanbul-reporter'
+  ],
   frameworks: ['phantomjs-shim', 'jasmine'],
   reporters: (mode === MODE.coverageToLcov ? ['nyan'] : []).concat( // Nyan is annoying in CI log
     [MODE.coverage, MODE.coverageToLcov].indexOf(mode) !== -1 ? ['coverage-istanbul'] : []

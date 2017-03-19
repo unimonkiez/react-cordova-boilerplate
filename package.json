@@ -92,6 +92,7 @@
     "start": "node ./bin/start.js",
     "start:prod": "node ./bin/start.js -- -p",
     "lint": "eslint --fix --ext .js,.jsx .",
+    "lint:report": "npm run lint -- --format html > ./report.html",
     "test": "node ./bin/test.js",
     "test:coveralls": "npm test -- -coverageToLcov",
     "test:watch": "npm test -- -w",

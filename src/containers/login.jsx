@@ -103,7 +103,7 @@ if (__DEV__) {
     })
   };
   LoginComponent.propTypes = {
-    route: PropTypes.shpae({}),
+    route: PropTypes.shape({}),
     credentials: LoginComponent.PropTypes.credentials.isRequired,
     credentialsActions: LoginComponent.PropTypes.credentialsActions.isRequired
   };

@@ -19492,7 +19492,7 @@ if (true) {
     })
   };
   LoginComponent.propTypes = {
-    route: _react.PropTypes.shpae({}),
+    route: _react.PropTypes.shape({}),
     credentials: LoginComponent.PropTypes.credentials.isRequired,
     credentialsActions: LoginComponent.PropTypes.credentialsActions.isRequired
   };

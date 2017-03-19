@@ -1,4 +1,4 @@
-import * as types from '../constants/CredentialsActionTypes';
+import * as types from 'src/constants/credentials-action-types.js';
 
 export function clearCredentials() {
   return {

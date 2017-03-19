@@ -8,7 +8,7 @@
 	font-style: normal;
 }
 
-.customFont {
+:local(.customFont) {
 	font-family: 'custom-font';
 	speak: none;
 	font-style: normal;
@@ -22,11 +22,11 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.customFontJs .path1:before {
+:local(.customFontJs) :local(.path1):before {
 	content: "\e600";
 	color: rgb(247, 223, 30);
 }
-.customFontJs .path2:before {
+:local(.customFontJs) :local(.path2):before {
 	content: "\e601";
 	margin-left: -1em;
 	color: rgb(0, 0, 0);

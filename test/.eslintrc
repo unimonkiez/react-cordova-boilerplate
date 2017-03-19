@@ -2,16 +2,14 @@
   "env": {
     "browser": true,
     "node": false,
-    "jasmine": false
+    "jasmine": true
   },
   "ecmaFeatures": {
     "modules": true
   },
-  "globals": {
-    "__DEVTOOLS__": false
-  },
   "extends": "../bin/webpack-eslint.js",
   "rules": {
-    "strict": [2, "never"]
+    "strict": [2, "never"],
+    "import/no-webpack-loader-syntax": 0
   }
 }

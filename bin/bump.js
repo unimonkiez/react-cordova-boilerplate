@@ -1,6 +1,5 @@
-'use strict';
-
 const execSync = require('child_process').execSync;
+
 const bump = process.env.bump || 'patch';
 
 execSync(`npm version ${bump} --no-git-tag-version`, {

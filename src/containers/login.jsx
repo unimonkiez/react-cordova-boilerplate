@@ -85,14 +85,31 @@ class LoginComponent extends Component {
 
 if (__DEV__) {
   // Not needed or used in minified mode
+  LoginComponent.PropTypes = {
+    credentials: PropTypes.shape({
+      authenticated: PropTypes.bool,
+      checkingToken: PropTypes.bool,
+      loggingIn: PropTypes.bool,
+      hint: PropTypes.bool
+    }),
+    credentialsActions: PropTypes.shape({
+      clearCredentials: PropTypes.func.isRequired,
+      checkCredentials: PropTypes.func.isRequired,
+      checkCredentialsSucess: PropTypes.func.isRequired,
+      checkCredentialsFailure: PropTypes.func.isRequired,
+      addCredentials: PropTypes.func.isRequired,
+      addCredentialsSucess: PropTypes.func.isRequired,
+      addCredentialsFailure: PropTypes.func.isRequired
+    })
+  };
   LoginComponent.propTypes = {
-    route: PropTypes.object,
-    credentials: PropTypes.object.isRequired,
-    credentialsActions: PropTypes.object.isRequired
+    route: PropTypes.shpae({}),
+    credentials: LoginComponent.PropTypes.credentials.isRequired,
+    credentialsActions: LoginComponent.PropTypes.credentialsActions.isRequired
   };
 }
 
-const Login = connect(state => ({ general: state.general, credentials: state.credentials }), dispatch => ({
+const Login = connect(state => ({ credentials: state.credentials }), dispatch => ({
   credentialsActions: bindActionCreators(CredentialsActions, dispatch)
 }))(LoginComponent);
 

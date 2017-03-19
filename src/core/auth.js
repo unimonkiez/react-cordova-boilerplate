@@ -61,7 +61,7 @@ export default {
   // If doesn't have token or login time has passed, do not validate the token against the server.
   loggedIn(cb) {
     let authenticated;
-    if (!localStorage.token || localStorage.time <= Date.now() - 1000 * 60) {
+    if (!localStorage.token || (localStorage.time <= Date.now() - (1000 * 60))) {
       authenticated = false;
     } else {
       pretendTokenRequest(localStorage.token, res => {

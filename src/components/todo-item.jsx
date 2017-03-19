@@ -30,7 +30,7 @@ export default class TodoItem extends Component {
     if (this.state.editing) {
       element = (
         <TodoTextInput
-          text={todo.text}
+          defaultText={todo.text}
           editing={this.state.editing}
           onSave={text => this.handleSave(todo.id, text)}
         />
@@ -67,7 +67,11 @@ export default class TodoItem extends Component {
 if (__DEV__) {
   // Not needed or used in minified mode
   TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired,
+    todo: PropTypes.shape({
+      id: PropTypes.string,
+      text: PropTypes.string,
+      marked: PropTypes.bool
+    }).isRequired,
     editTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
     markTodo: PropTypes.func.isRequired

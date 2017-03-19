@@ -7,8 +7,9 @@ import auth from 'src/core/auth.js';
 import Header from 'src/components/header.jsx';
 import MainSection from 'src/components/main-section.jsx';
 import todoStyle from 'src/style/todo-style.scss';
+import TodoItem from 'src/components/todo-item.jsx';
 
-export class TodoAppComponent extends Component {
+class TodoAppComponent extends Component {
   handleLogout = this.handleLogout.bind(this);
   handleLogout() {
     auth.logout();
@@ -24,7 +25,7 @@ export class TodoAppComponent extends Component {
         <section className={todoStyle.todoapp}>
           <div>
             <Header {...todoActions} />
-            <MainSection todos={todos} actions={todoActions} />
+            <MainSection todos={todos} {...todoActions} />
           </div>
         </section>
       </div>
@@ -35,9 +36,24 @@ export class TodoAppComponent extends Component {
 if (__DEV__) {
   // Not needed or used in minified mode
   TodoAppComponent.propTypes = {
-    todos: PropTypes.array.isRequired,
-    credentialsActions: PropTypes.object.isRequired,
-    todoActions: PropTypes.object.isRequired
+    todos: PropTypes.arrayOf(TodoItem.propTypes.todo).isRequired,
+    credentialsActions: PropTypes.shape({
+      clearCredentials: PropTypes.func.isRequired,
+      checkCredentials: PropTypes.func.isRequired,
+      checkCredentialsSucess: PropTypes.func.isRequired,
+      checkCredentialsFailure: PropTypes.func.isRequired,
+      addCredentials: PropTypes.func.isRequired,
+      addCredentialsSucess: PropTypes.func.isRequired,
+      addCredentialsFailure: PropTypes.func.isRequired
+    }).isRequired,
+    todoActions: PropTypes.shape({
+      addTodo: PropTypes.func.isRequired,
+      deleteTodo: PropTypes.func.isRequired,
+      editTodo: PropTypes.func.isRequired,
+      markTodo: PropTypes.func.isRequired,
+      markAll: PropTypes.func.isRequired,
+      clearMarked: PropTypes.func.isRequired
+    }).isRequired
   };
 }
 

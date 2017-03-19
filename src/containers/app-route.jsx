@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Router, Route, hashHistory as history } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,11 +12,11 @@ class AppRouteComponent extends Component {
     this.checkAuth = this.checkAuth.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
 
-    this._authenticated = this.props.stores.credentials.authenticated;
+    this._authenticated = this.props.credentials.authenticated;
     this._isCheckingInitialLogIn = true;
     this._shouldRouterUpdate = true;
 
-    const { credentialsActions } = this.props.actions;
+    const { credentialsActions } = this.props;
     credentialsActions.checkCredentials();
 
     const handleLoggedIn = authenticated => {
@@ -40,8 +40,8 @@ class AppRouteComponent extends Component {
   }
   shouldComponentUpdate(nextProps) {
     // Each time props are about to update - switch url if needed
-    this._authenticated = nextProps.stores.credentials.authenticated;
-    if (this.props.stores.credentials.authenticated !== this._authenticated) {
+    this._authenticated = nextProps.credentials.authenticated;
+    if (this.props.credentials.authenticated !== this._authenticated) {
       history.push('/');
     }
     return this._shouldRouterUpdate;
@@ -82,15 +82,13 @@ class AppRouteComponent extends Component {
 if (__DEV__) {
   // Not needed or used in minified mode
   AppRouteComponent.propTypes = {
-    stores: PropTypes.object,
-    actions: PropTypes.object
+    credentials: Login.PropTypes.credentials.isRequired,
+    credentialsActions: Login.PropTypes.credentialsActions.isRequired
   };
 }
 
-const AppRoute = connect(state => ({ stores: state }), dispatch => ({
-  actions: {
-    credentialsActions: bindActionCreators(CredentialsActions, dispatch)
-  }
+const AppRoute = connect(state => ({ credentials: state.credentials }), dispatch => ({
+  credentialsActions: bindActionCreators(CredentialsActions, dispatch)
 }))(AppRouteComponent);
 
 export default AppRoute;

@@ -20,11 +20,11 @@ let getServerString;
  */
 const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
   const {
+//    coveragePaths = [],
     isProd = false,
     isSsr = false,
     isWebpackDevServer = false,
     isTest = false,
-    coveragePaths = [],
     port,
     globals = ({})
   } = options;

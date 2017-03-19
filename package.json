@@ -100,6 +100,6 @@
     "test:coverage:watch": "npm test -- -coverage -w",
     "test:watch:coverage": "npm run test:coverage:watch",
     "predeploy": "npm run build",
-    "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
+    "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git commit -m 'Merge from master' && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
   }
 }

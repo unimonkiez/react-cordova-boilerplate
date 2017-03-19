@@ -4,33 +4,45 @@
 [![npm version](https://badge.fury.io/js/react-cordova-boilerplate.svg)](http://badge.fury.io/js/react-cordova-boilerplate)
 # Redux DevTools TodoMVC example
 ## Demo - click the image to try it
-[![Try it out](https://raw.githubusercontent.com/unimonkiez/react-cordova-boilerplate/master/resources/demo.jpg)](http://unimonkiez.github.io/react-cordova-boilerplate/)
+[<img src="https://raw.githubusercontent.com/unimonkiez/react-cordova-boilerplate/master/resources/demo.jpg" width="300" />](http://unimonkiez.github.io/react-cordova-boilerplate/)
 
-![](http://s23.postimg.org/tmgzg652j/2015_10_06_17_22_52_1_online_video_cutter.gif)
+<img src="http://s23.postimg.org/tmgzg652j/2015_10_06_17_22_52_1_online_video_cutter.gif" width="300" />
 
-## Why cordova
-Cordova is really simple to build cross platform mobile applications for any of your needs, this boilerplate provides a great starting point for your next project, as it uses:
-* ES6 + some features from ES7
+# Notice
+##### This is a prerelease version (*2.0.0*) of the boilerplate supporting some new features and webpack 2.
+As of right now some testing features are missing , please be patient and help out :smile:.
+You can always use latest version [here (1.3.0)](https://github.com/unimonkiez/react-cordova-boilerplate/tree/6f8ef8bc9b36bdcfb1dd6749c60064bf87008e47).
+
+## Why cordova  and React
+Cordova is really simple to build cross platform mobile applications for any of your needs, this boilerplate provides a great starting point for your next react project, and can be used to maintain a website and mobile application from same source code (any maybe transitioning later to react-native)
+
+## Features
+* ES6
 * React
 * React router
-* Webpack
+* Webpack 2
 * Server rendering
 * Karma
 * Eslint
 * Style: Redium + SASS
 
 ## Installing
-1. Install dependencies: ```npm i```
+1. Install dependencies: ```npm i``` or ```yarn install```
 2. Install global tools: ```npm install -g cordova```
 3. Add your cordova platform by running ```cordova platform add %PLATFORM%``` (android and more)
 
 ## Usage
-- ```npm run lint``` - runs linting against src folder.
-- ```npm run test``` - runs karma + jasmine testing.
-- ```npm run start``` - starts a server, with react model replacement and devtools.
-- ```npm run start:prod``` - starts a server, with react model replacement and minifications of main html file and js file.
-- ```npm run build``` - builds the project (single html file and single js file) as it does for development.
-- ```npm run build:prod``` - builds the project (single html file and single js file) as it does for production.
+- ```npm run lint[:report]``` - runs linting against src folder and **fix some of the issues**, `report` option to generate html report to `./report.html`.
+- ```npm run start[:prod]``` - starts a server, with react model replacement and devtools on `localhost:8080`, `prod` option to minify the build (same build eventually integrated with the cordova app).
+- ```npm run build[:prod][:watch]``` - builds the project (single html file and single js file) as it does for development.
+- ```npm run test[:prod][:watch][:coverage][:lcov]``` - runs karma + jasmine testing, outputs result to console, `prod` option to minify the build, `watch` options to watch files and test again after file modification, `coverage` option to generate html coverage report to `./coverage` folder, `lcov` option to generate lcov coverage report to `./coverage` (lcov is used by coveralls and some other coverage reporting sites)/
+
+## Version 2.0.0 missing features
+- `npm run test` - Fails with some karma exception.
+- `npm run test:coverage` - Not yet working fully, some issues with integrating.
+- Add more unit tests.
+- Add coverage badge. [istanbul-instrumenter-loader](https://github.com/webpack-contrib/istanbul-instrumenter-loader).
+- Want to implement context usage and some HOC's (higher order components) for better code.
 
 ## Build and run as application
 As you do with any cordova application, ```cordova build android```, ```cordova run android``` and more.

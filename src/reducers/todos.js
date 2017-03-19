@@ -1,4 +1,11 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, MARK_TODO, MARK_ALL, CLEAR_MARKED } from '../constants/TodoActionTypes';
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  EDIT_TODO,
+  MARK_TODO,
+  MARK_ALL,
+  CLEAR_MARKED
+} from 'src/constants/todo-action-types.js';
 
 const initialState = [{
   text: 'Use Redux',

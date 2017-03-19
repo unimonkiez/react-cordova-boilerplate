@@ -1,4 +1,4 @@
-import * as types from '../constants/TodoActionTypes';
+import * as types from 'src/constants/todo-action-types.js';
 
 export function addTodo(text) {
   return {

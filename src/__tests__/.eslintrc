@@ -1,6 +1,0 @@
-{
-  "env": {
-    "jasmine": true,
-    "browser": false
-  }
-}

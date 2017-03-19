@@ -1,7 +1,7 @@
 import { createStore, compose } from 'redux';
 import { persistState } from 'redux-devtools';
-import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools.jsx';
+import rootReducer from 'src/reducers';
+import DevTools from 'src/containers/dev-tools.jsx';
 
 const enhancer = compose(
   // Required! Enable Redux DevTools with the monitors you chose

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import TodoItem from './TodoItem.jsx';
-import Footer from './Footer.jsx';
-import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from '../constants/TodoFilters';
-import todoStyle from '../style/todo-style.scss';
+import { SHOW_ALL, SHOW_MARKED, SHOW_UNMARKED } from 'src/constants/todo-filters.js';
+import todoStyle from 'src/style/todo-style.scss';
+import TodoItem from './todo-item.jsx';
+import Footer from './footer.jsx';
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
@@ -11,19 +11,19 @@ const TODO_FILTERS = {
 };
 
 export default class MainSection extends Component {
-  static propTypes = {
-    todos: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
-  };
-  constructor(props, context) {
-    super(props, context);
-    this.state = { filter: SHOW_ALL };
+  componentWillMount() {
+    this.state = {
+      filter: SHOW_ALL
+    };
+    this.handleClearMarked = this.handleClearMarked.bind(this);
+    this.handleShow = this.handleShow.bind(this);
   }
 
   handleClearMarked() {
-    const atLeastOneMarked = this.props.todos.some(todo => todo.marked);
+    const { todos, clearMarked } = this.props;
+    const atLeastOneMarked = todos.some(todo => todo.marked);
     if (atLeastOneMarked) {
-      this.props.actions.clearMarked();
+      clearMarked();
     }
   }
 
@@ -32,14 +32,14 @@ export default class MainSection extends Component {
   }
 
   renderToggleAll(markedCount) {
-    const { todos, actions } = this.props;
+    const { todos, markAll } = this.props;
     if (todos.length > 0) {
       return (
         <input
           className={todoStyle['toggle-all']}
           type="checkbox"
           checked={markedCount === todos.length}
-          onChange={actions.markAll}
+          onChange={markAll}
         />
       );
     }
@@ -57,8 +57,8 @@ export default class MainSection extends Component {
           markedCount={markedCount}
           unmarkedCount={unmarkedCount}
           filter={filter}
-          onClearMarked={::this.handleClearMarked}
-          onShow={::this.handleShow}
+          onClearMarked={this.handleClearMarked}
+          onShow={this.handleShow}
         />
       );
     }
@@ -67,7 +67,7 @@ export default class MainSection extends Component {
 
   render() {
     const { filter } = this.state;
-    const { todos, actions } = this.props;
+    const { todos, ...actions } = this.props;
 
     const filteredTodos = todos.filter(TODO_FILTERS[filter]);
     const markedCount = todos.reduce((count, todo) =>
@@ -87,4 +87,12 @@ export default class MainSection extends Component {
       </section>
     );
   }
+}
+if (__DEV__) {
+  // Not needed or used in minified mode
+  MainSection.propTypes = {
+    todos: PropTypes.arrayOf(TodoItem.propTypes.todo).isRequired,
+    clearMarked: PropTypes.func.isRequired,
+    markAll: PropTypes.func.isRequired
+  };
 }

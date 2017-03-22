@@ -1,8 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const requireFromString = require('require-from-string');
-const MemoryFS = require('memory-fs');
-const deasync = require('deasync');
 
 // Plugins
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -215,6 +212,14 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
  * @return {String}         String which contains the server rendered app
  */
 getServerString = options => {
+  // Requiring dependencies here because there is no need or use while running eslint (which also imports webpack config).
+  // Some packages like `deasync` fail while running from some IDE's
+  /* eslint-disable global-require */
+  const requireFromString = require('require-from-string');
+  const MemoryFS = require('memory-fs');
+  const deasync = require('deasync');
+  /* eslint-enable global-require */
+
   const { isProd } = options;
   const bundlePath = path.join(rootPath, 'www', `app${isProd ? '.min' : ''}.js`);
 

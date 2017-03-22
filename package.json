@@ -35,6 +35,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-2": "^6.18.0",
     "babel-runtime": "^6.20.0",
+    "compass-mixins": "^0.12.10",
     "css-loader": "^0.27.3",
     "deasync": "^0.1.7",
     "eslint": "^3.13.1",

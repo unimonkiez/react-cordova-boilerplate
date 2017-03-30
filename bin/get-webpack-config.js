@@ -143,7 +143,10 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
                 }
               },
               {
-                loader: 'sass-loader'
+                loader: 'sass-loader',
+                options: {
+                  includePaths: ['node_modules/compass-mixins/lib']
+                },
               }
             ],
             fallback: 'style-loader'

@@ -4,9 +4,9 @@
 [![npm version](https://badge.fury.io/js/react-cordova-boilerplate.svg)](http://badge.fury.io/js/react-cordova-boilerplate)
 # Redux DevTools TodoMVC example
 ## Demo - click the image to try it
-[<img src="https://raw.githubusercontent.com/unimonkiez/react-cordova-boilerplate/master/resources/demo.jpg" width="300" />](http://unimonkiez.github.io/react-cordova-boilerplate/)
+[<img src="https://raw.githubusercontent.com/unimonkiez/react-cordova-boilerplate/gh-pages/resources/demo.jpg" width="300" />](http://unimonkiez.github.io/react-cordova-boilerplate/)
 
-<img src="http://s23.postimg.org/tmgzg652j/2015_10_06_17_22_52_1_online_video_cutter.gif" width="300" />
+<img src="https://raw.githubusercontent.com/unimonkiez/react-cordova-boilerplate/gh-pages/resources/demo.gif" width="300" />
 
 # Notice
 ##### This is a prerelease version (*2.0.0*) of the boilerplate supporting some new features and webpack 2.

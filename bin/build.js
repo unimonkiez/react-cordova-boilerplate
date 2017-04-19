@@ -9,13 +9,24 @@ const isSsr = isProd;
 const webpackConfig = getWebpackConfig({
   isProd,
   isSsr,
+  bail: !isWatching,
   globals: {
     __DEVTOOLS__: !isProd
   }
 });
 
+const cb = (err, stats) => {
+  if (err) {
+    console.warn(err);
+    if (!isWatching) {
+      process.exit(1);
+    }
+  } else {
+    console.log('[webpack log]', stats.toString());
+  }
+};
 if (isWatching) {
-  webpack(webpackConfig).watch({}, () => {});
+  webpack(webpackConfig).watch({}, cb);
 } else {
-  webpack(webpackConfig, () => {});
+  webpack(webpackConfig, cb);
 }

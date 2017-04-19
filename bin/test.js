@@ -1,6 +1,6 @@
 const path = require('path');
+const createMochaWebpack = require('mocha-webpack/lib/createMochaWebpack');
 const getWebpackConfig = require('./get-webpack-config');
-const Server = require('karma').Server;
 
 // MODE const
 const MODE = {
@@ -10,13 +10,10 @@ const MODE = {
 };
 
 const rootPath = path.join(__dirname, '..');
-const testBundles = [
-  path.join(rootPath, 'test', 'index.js')
-];
+const testBundle = path.join('test', 'index.js');
 const coveragePaths = [
   path.join(rootPath, 'src')
 ];
-const port = 9876;
 
 const args = process.argv.slice(2);
 let mode = MODE.default;
@@ -33,49 +30,35 @@ const webpackConfig = getWebpackConfig({
   coveragePaths
 });
 
-const server = new Server({
-  // ... normal karma configuration
-  port,
-  browsers: ['PhantomJS'],
-  singleRun: !isWatching,
-  files: [
-    // 'node_modules/babel-polyfill/dist/polyfill.js'
-  ].concat(testBundles),
-  preprocessors: [].concat(testBundles).reduce((obj, file) => (
-    Object.assign(obj, {
-      [file]: ['webpack', 'sourcemap']
-    })
-  ), {}),
-  plugins: [
-    'karma-webpack',
-    'karma-jasmine',
-    'karma-nyan-reporter',
-    'karma-phantomjs-launcher',
-    'karma-phantomjs-shim',
-    'karma-coverage-istanbul-reporter'
-  ],
-  frameworks: ['phantomjs-shim', 'jasmine'],
-  reporters: (mode === MODE.coverageToLcov ? ['nyan'] : []).concat( // Nyan is annoying in CI log
-    [MODE.coverage, MODE.coverageToLcov].indexOf(mode) !== -1 ? ['coverage-istanbul'] : []
-  ),
-  // reporter options
-  nyanReporter: {
-    suppressErrorHighlighting: true
-  },
-  coverageIstanbulReporter: {
-    reports: mode === MODE.coverageToLcov ? ['lcovonly'] : ['html'],
-    dir: 'coverage/',
-    fixWebpackSourcePaths: true,
-    'report-config': {
-      html: {
-        subdir: 'html'
-      }
-    }
-  },
-  webpack: webpackConfig,
-  webpackMiddleware: {
-    noInfo: true
+const mochaWebpack = createMochaWebpack();
+mochaWebpack.cwd(rootPath);
+mochaWebpack.webpackConfig(webpackConfig);
+mochaWebpack.bail(!isWatching);
+// mochaWebpack.reporter(options.reporter, options.reporterOptions);
+// mochaWebpack.ui(options.ui);
+// mochaWebpack.interactive(options.interactive);
+// mochaWebpack.bail(true);
+mochaWebpack.addEntry(testBundle);
+
+Promise.resolve()
+.then(() => {
+  if (isWatching) {
+    return mochaWebpack.watch();
+  } else {
+    return mochaWebpack.run();
+  }
+})
+.then(failures => {
+  if (!isWatching) {
+    process.exit(failures);
+  }
+})
+.catch(e => {
+  console.log('EXITTTS');
+  if (e) {
+    console.error(e.stack); // eslint-disable-line
+  }
+  if (!isWatching) {
+    process.exit(1);
   }
 });
-
-server.start();

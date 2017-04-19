@@ -23,6 +23,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
     isWebpackDevServer = false,
     isTest = false,
     port,
+    bail = false,
     globals = ({})
   } = options;
 
@@ -31,7 +32,8 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
   } = privateOptions;
 
   return ({
-    bail: true,
+    bail,
+    target: isTest ? 'node' : undefined,
     devtool: isTest ? 'inline-source-map' : (isProd ? false : 'source-map'),
     entry: isTest ? undefined : {
       [`app${isProd ? '.min' : ''}`]: (
@@ -78,7 +80,9 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         inject: 'body'
       })
     ] : [])
-    .concat(isTest ? [] : new webpack.ProvidePlugin({
+    .concat(isTest ? [
+      new webpack.IgnorePlugin(/jsdom$/)
+    ] : new webpack.ProvidePlugin({
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }))
     .concat(isWebpackDevServer ? [

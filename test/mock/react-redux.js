@@ -1,5 +1,7 @@
+import { stub } from 'sinon';
+
 const getReactReduxMock = () => ({
-  connect: jasmine.createSpy('react-redux.connect').and.returnValue(component => component)
+  connect: stub().returns(component => component)
 });
 
 export default getReactReduxMock;

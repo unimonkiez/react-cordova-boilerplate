@@ -2,28 +2,44 @@
   "name": "react-cordova-boilerplate",
   "version": "2.0.1-alpha.3",
   "description": "TodoMVC example for react with development tools to build a cordova application",
+  "keywords": [
+    "edit",
+    "flux",
+    "hmr",
+    "hot",
+    "live",
+    "react",
+    "reactjs",
+    "redux",
+    "reload",
+    "todomvc",
+    "webpack"
+  ],
+  "homepage": "https://github.com/unimonkiez/react-cordova-boilerplate#readme",
+  "bugs": {
+    "url": "https://github.com/unimonkiez/react-cordova-boilerplate/issues"
+  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/unimonkiez/react-cordova-boilerplate.git"
   },
-  "keywords": [
-    "react",
-    "reactjs",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
-    "webpack",
-    "flux",
-    "redux",
-    "todomvc"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/unimonkiez/react-cordova-boilerplate/issues"
+  "scripts": {
+    "build": "node ./bin/build.js",
+    "build:prod": "npm run build -- -p",
+    "build:prod:watch": "npm run build -- -p -w",
+    "build:watch": "npm run build -- -w",
+    "build:watch:prod": "npm run build:prod:watch",
+    "lint": "eslint --fix --ext .js,.jsx .",
+    "lint:report": "npm run lint -- --format html -o ./report.html",
+    "start": "node ./bin/start.js",
+    "start:prod": "node ./bin/start.js -- -p",
+    "test": "node ./bin/test.js",
+    "test:coverage": "node ./bin/test-coverage.js",
+    "test:coverage:watch": "echo \"Error: `nyc` doesn't support watch mode\" && exit 1",
+    "test:watch": "npm test -- -w",
+    "test:watch:coverage": "npm run test:coverage:watch"
   },
-  "homepage": "https://github.com/unimonkiez/react-cordova-boilerplate#readme",
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.11.4",
@@ -82,38 +98,5 @@
     "webpack-dev-server": "^2.2.0",
     "webpack-node-externals": "^1.5.4",
     "whatwg-fetch": "^2.0.1"
-  },
-  "scripts": {
-    "build": "node ./bin/build.js",
-    "build:watch": "npm run build -- -w",
-    "build:prod": "npm run build -- -p",
-    "build:prod:watch": "npm run build -- -p -w",
-    "build:watch:prod": "npm run build:prod:watch",
-    "start": "node ./bin/start.js",
-    "start:prod": "node ./bin/start.js -- -p",
-    "lint": "eslint --fix --ext .js,.jsx .",
-    "lint:report": "npm run lint -- --format html -o ./report.html",
-    "test": "node ./bin/test.js",
-    "test:watch": "npm test -- -w",
-    "test:coverage": "node ./bin/test-coverage.js",
-    "test:coverage:watch": "echo \"Error: `nyc` doesn't support watch mode\" && exit 1",
-    "test:watch:coverage": "npm run test:coverage:watch",
-    "predeploy": "npm run build",
-    "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git commit -m 'Merge from master' && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
-  },
-  "nyc": {
-    "include": [
-      ".tmp/webpack:/src/**/*.js",
-      ".tmp/webpack:/src/**/*.jsx"
-    ],
-    "reporter": [
-      "lcov",
-      "html",
-      "text"
-    ],
-    "extension": [
-      ".jsx"
-    ],
-    "report-dir": "./alternative"
   }
 }

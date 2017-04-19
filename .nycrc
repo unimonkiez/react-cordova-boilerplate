@@ -1,11 +1,16 @@
 {
+  "include": [
+    "src/"
+  ],
   "extension": [
     ".jsx"
   ],
   "reporter": [
+    "lcov",
     "html",
     "text-summary"
   ],
+  "report-dir": "./alternative",
   "cache": true,
   "sourceMap": false,
   "instrument": false

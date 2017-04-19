@@ -36,8 +36,10 @@
     "babel-preset-stage-2": "^6.18.0",
     "babel-runtime": "^6.20.0",
     "chai": "^3.5.0",
+    "coveralls": "^2.13.0",
     "css-loader": "^0.27.3",
     "deasync": "^0.1.7",
+    "dirty-chai": "^1.2.2",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-import-resolver-webpack": "^0.8.0",
@@ -50,16 +52,18 @@
     "html-webpack-plugin": "^2.22.0",
     "imports-loader": "^0.7.0",
     "inject-loader": "^3.0.0",
+    "istanbul-instrumenter-loader": "^2.0.0",
     "jsdom": "^9.12.0",
     "lodash": "^4.2.0",
     "memory-fs": "^0.4.1",
     "mocha": "^3.2.0",
     "mocha-webpack": "next",
     "node-sass": "^4.3.0",
+    "nyc": "^10.2.0",
     "prop-types": "^15.5.8",
     "radium": "^0.18.1",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1",
+    "react": "^15.5.0",
+    "react-dom": "^15.5.0",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "redux": "^3.5.2",
@@ -70,11 +74,13 @@
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.3",
     "sinon": "^2.1.0",
+    "sinon-chai": "^2.9.0",
     "style-loader": "^0.14.0",
     "to-string-loader": "^1.1.5",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0",
+    "webpack-node-externals": "^1.5.4",
     "whatwg-fetch": "^2.0.1"
   },
   "scripts": {
@@ -86,14 +92,28 @@
     "start": "node ./bin/start.js",
     "start:prod": "node ./bin/start.js -- -p",
     "lint": "eslint --fix --ext .js,.jsx .",
-    "lint:report": "npm run lint -- --format html > ./report.html",
+    "lint:report": "npm run lint -- --format html -o ./report.html",
     "test": "node ./bin/test.js",
-    "test:coveralls": "npm test -- -coverageToLcov",
     "test:watch": "npm test -- -w",
-    "test:coverage": "npm test -- -coverage",
-    "test:coverage:watch": "npm test -- -coverage -w",
+    "test:coverage": "node ./bin/test-coverage.js",
+    "test:coverage:watch": "echo \"Error: `nyc` doesn't support watch mode\" && exit 1",
     "test:watch:coverage": "npm run test:coverage:watch",
     "predeploy": "npm run build",
     "deploy": "git add -f www/ && node ./bin/bump.js && git checkout gh-pages && git merge master && git commit -m 'Merge from master' && git checkout master && git push --tags && npm publish && git push origin master gh-pages"
+  },
+  "nyc": {
+    "include": [
+      ".tmp/webpack:/src/**/*.js",
+      ".tmp/webpack:/src/**/*.jsx"
+    ],
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ],
+    "extension": [
+      ".jsx"
+    ],
+    "report-dir": "./alternative"
   }
 }

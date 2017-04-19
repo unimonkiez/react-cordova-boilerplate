@@ -19,5 +19,5 @@ install:
 script:
 - |
     yarn run lint
-#   Disabled until testing is fixed
-#   yarn run test:lcov
+    yarn run test:coverage
+    cat ./alternative/lcov.info | node_modules/.bin/coveralls --verbose

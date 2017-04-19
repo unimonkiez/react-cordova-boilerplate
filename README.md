@@ -17,14 +17,19 @@ You can always use latest version [here (1.3.0)](https://github.com/unimonkiez/r
 Cordova is really simple to build cross platform mobile applications for any of your needs, this boilerplate provides a great starting point for your next react project, and can be used to maintain a website and mobile application from same source code (any maybe transitioning later to react-native)
 
 ## Features
-* ES6
-* React
+* eslint
+* Smart build using Webpack 2
+  * ES6
+  * React (jsx)
+  * Server rendering for initial page
+  * Style: Redium + SASS
 * React router
-* Webpack 2
-* Server rendering
-* Karma
-* Eslint
-* Style: Redium + SASS
+* Testing
+  * Mocha
+  * jsdom (blazing fast testing on nodeJs)
+  * Sinon
+  * Chai
+  * Coverage using nyc
 
 ## Installing
 1. Install dependencies: ```npm i``` or ```yarn install```
@@ -35,14 +40,7 @@ Cordova is really simple to build cross platform mobile applications for any of 
 - ```npm run lint[:report]``` - runs linting against src folder and **fix some of the issues**, `report` option to generate html report to `./report.html`.
 - ```npm run start[:prod]``` - starts a server, with react model replacement and devtools on `localhost:8080`, `prod` option to minify the build (same build eventually integrated with the cordova app).
 - ```npm run build[:prod][:watch]``` - builds the project (single html file and single js file) as it does for development.
-- ```npm run test[:prod][:watch][:coverage][:lcov]``` - runs karma + jasmine testing, outputs result to console, `prod` option to minify the build, `watch` options to watch files and test again after file modification, `coverage` option to generate html coverage report to `./coverage` folder, `lcov` option to generate lcov coverage report to `./coverage` (lcov is used by coveralls and some other coverage reporting sites)/
-
-## Version 2.0.0 missing features
-- `npm run test` - Fails with some karma exception.
-- `npm run test:coverage` - Not yet working fully, some issues with integrating.
-- Add more unit tests.
-- Add coverage badge. [istanbul-instrumenter-loader](https://github.com/webpack-contrib/istanbul-instrumenter-loader).
-- Want to implement context usage and some HOC's (higher order components) for better code.
+- ```npm run test[:watch][:coverage]``` - runs Mocha testing, outputs result to console, `watch` options to watch files and test again after file modification, `coverage` option to generate coverage reports to `./alternative` folder (`index.html` is a usuful one!).
 
 ## Build and run as application
 As you do with any cordova application, ```cordova build android```, ```cordova run android``` and more.

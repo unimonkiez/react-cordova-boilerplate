@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as todoFilters from 'src/constants/todo-filters.js';
 import todoStyle from 'src/style/todo-style.scss';
 

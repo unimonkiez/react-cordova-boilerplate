@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 // Plugins
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -17,7 +18,7 @@ let getServerString;
  */
 const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
   const {
-//    coveragePaths = [],
+    coveragePaths = [],
     isProd = false,
     isSsr = false,
     isWebpackDevServer = false,
@@ -80,9 +81,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         inject: 'body'
       })
     ] : [])
-    .concat(isTest ? [
-      new webpack.IgnorePlugin(/jsdom$/)
-    ] : new webpack.ProvidePlugin({
+    .concat(isTest ? [] : new webpack.ProvidePlugin({
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }))
     .concat(isWebpackDevServer ? [
@@ -189,16 +188,14 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         }
       ]
       .concat(isTest ? [
-        // { // `istanbul-instrumenter` all the code We want to be in the coverage report
-        //   test: /\.(js|jsx)$/,
-        //   enforce: 'post',
-        //   include: coveragePaths,
-        //   use: [
-        //     {
-        //       loader: 'istanbul-instrumenter-loader?dd'
-        //     }
-        //   ]
-        // }
+        {
+          test: /\.(js|jsx)$/,
+          include: coveragePaths,
+          enforce: 'post',
+          loader: {
+            loader: 'istanbul-instrumenter-loader'
+          }
+        }
       ] : [])
     },
     resolve: {
@@ -206,7 +203,9 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
         rootPath,
         path.join(rootPath, 'node_modules')
       ]
-    }
+    },
+    externals: []
+    .concat(isTest ? nodeExternals() : [])
   });
 };
 

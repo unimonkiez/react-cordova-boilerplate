@@ -5,3 +5,5 @@ npm-debug.log
 report.html
 .DS_Store
 .tmp
+.nyc_output
+alternative

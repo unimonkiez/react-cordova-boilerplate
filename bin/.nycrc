@@ -1,0 +1,12 @@
+{
+  "extension": [
+    ".jsx"
+  ],
+  "reporter": [
+    "html",
+    "text-summary"
+  ],
+  "cache": true,
+  "sourceMap": false,
+  "instrument": false
+}

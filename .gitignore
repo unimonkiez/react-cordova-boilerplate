@@ -1,9 +1,10 @@
 node_modules/
 plugins/
 platforms/
+.nyc_output/
+alternative/
+www/*
+!www/.gitkeep
 npm-debug.log
-report.html
 .DS_Store
 .tmp
-.nyc_output
-alternative

@@ -1,6 +1,7 @@
 const path = require('path');
 const createMochaWebpack = require('mocha-webpack/lib/createMochaWebpack');
 const getWebpackConfig = require('./get-webpack-config');
+const NYC = require('nyc');
 
 const rootPath = path.join(__dirname, '..');
 
@@ -8,6 +9,27 @@ const args = process.argv.slice(2);
 
 const isWatching = args.indexOf('-w') !== -1;
 const isCoverage = args.indexOf('-coverage') !== -1;
+
+if (isCoverage) {
+  const nyc = new NYC({
+    include: [
+      'src/'
+    ],
+    extension: [
+      '.jsx'
+    ],
+    reporter: [
+      'lcov',
+      'html',
+      'text-summary'
+    ],
+    cache: true,
+    sourceMap: false,
+    instrument: false
+  });
+  nyc.reset();
+  nyc.wrap();
+}
 
 const webpackConfig = getWebpackConfig({
   isTest: true,

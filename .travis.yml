@@ -21,4 +21,4 @@ script:
     yarn run test:coverage
 
     # Uploading to coveralls, even though we are not displaying it, because it will look bad in the readme.
-    cat ./alternative/lcov.info | node_modules/.bin/coveralls --verbose
+    cat ./coverage/lcov.info | node_modules/.bin/coveralls --verbose

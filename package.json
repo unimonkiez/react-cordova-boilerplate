@@ -35,9 +35,9 @@
     "start": "node ./bin/start.js",
     "start:prod": "node ./bin/start.js -- -p",
     "test": "node ./bin/test.js",
+    "test:watch": "npm test -- -w",
     "test:coverage": "node ./bin/test-coverage.js",
     "test:coverage:watch": "echo \"Error: `nyc` doesn't support watch mode\" && exit 1",
-    "test:watch": "npm test -- -w",
     "test:watch:coverage": "npm run test:coverage:watch"
   },
   "dependencies": {},

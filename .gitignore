@@ -2,7 +2,7 @@ node_modules/
 plugins/
 platforms/
 .nyc_output/
-alternative/
+coverage/
 www/*
 !www/.gitkeep
 npm-debug.log

@@ -40,7 +40,7 @@ Cordova is really simple to build cross platform mobile applications for any of 
 - ```npm run lint[:report]``` - runs linting against src folder and **fix some of the issues**, `report` option to generate html report to `./report.html`.
 - ```npm run start[:prod]``` - starts a server, with react model replacement and devtools on `localhost:8080`, `prod` option to minify the build (same build eventually integrated with the cordova app).
 - ```npm run build[:prod][:watch]``` - builds the project (single html file and single js file) as it does for development.
-- ```npm run test[:watch][:coverage]``` - runs Mocha testing, outputs result to console, `watch` options to watch files and test again after file modification, `coverage` option to generate coverage reports to `./alternative` folder (`index.html` is a usuful one!).
+- ```npm run test[:watch][:coverage]``` - runs Mocha testing, outputs result to console, `watch` options to watch files and test again after file modification, `coverage` option to generate coverage reports to `./coverage` folder (`index.html` is a usuful one!).
 
 ## Build and run as application
 As you do with any cordova application, ```cordova build android```, ```cordova run android``` and more.

@@ -4,17 +4,24 @@ const getWebpackConfig = require('./get-webpack-config');
 const NYC = require('nyc');
 
 const rootPath = path.join(__dirname, '..');
+const testPaths = [
+  path.join(rootPath, 'test', 'index.js')
+];
+const coveragePaths = [
+  path.join(rootPath, 'src')
+];
 
 const args = process.argv.slice(2);
 
 const isWatching = args.indexOf('-w') !== -1;
 const isCoverage = args.indexOf('-coverage') !== -1;
 
+let nyc;
 if (isCoverage) {
-  const nyc = new NYC({
-    include: [
-      'src/'
-    ],
+  const nycPath = rootPath;
+  nyc = new NYC({
+    cwd: nycPath,
+    include: coveragePaths.map(f => path.relative(nycPath, f)),
     extension: [
       '.jsx'
     ],
@@ -23,9 +30,10 @@ if (isCoverage) {
       'html',
       'text-summary'
     ],
-    cache: true,
+    hookRunInContext: true,
+    enableCache: true,
     sourceMap: false,
-    instrument: false
+    instrumenter: 'nyc/lib/instrumenters/noop'
   });
   nyc.reset();
   nyc.wrap();
@@ -40,19 +48,28 @@ const webpackConfig = getWebpackConfig({
 });
 
 const mochaWebpack = createMochaWebpack();
-mochaWebpack.cwd(rootPath);
+const mochaWebpackPath = rootPath;
+mochaWebpack.cwd(mochaWebpackPath);
 mochaWebpack.webpackConfig(webpackConfig);
 mochaWebpack.bail(!isWatching);
-mochaWebpack.addEntry(
-  path.join('test', 'index.js')
-);
+testPaths.forEach(f => {
+  // Make test path relative to mochaWebpackPath set before
+  mochaWebpack.addEntry(
+    path.relative(mochaWebpackPath, f)
+  );
+});
 
-Promise.resolve()
+Promise.reject()
 .then(() => {
   if (isWatching) {
     return mochaWebpack.watch();
   } else {
     return mochaWebpack.run();
+  }
+})
+.then(() => {
+  if (isCoverage) {
+    nyc.report();
   }
 })
 .then(failures => {

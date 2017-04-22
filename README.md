@@ -2,16 +2,11 @@
 [![Dependency Status](https://david-dm.org/unimonkiez/react-cordova-boilerplate.svg)](https://david-dm.org/unimonkiez/react-cordova-boilerplate)
 [![devDependency Status](https://david-dm.org/unimonkiez/react-cordova-boilerplate/dev-status.svg)](https://david-dm.org/unimonkiez/react-cordova-boilerplate#info=devDependencies)
 [![npm version](https://badge.fury.io/js/react-cordova-boilerplate.svg)](http://badge.fury.io/js/react-cordova-boilerplate)
-# Redux DevTools TodoMVC example
+# React Cordova boilerplate
 ## Demo - click the image to try it
 [<img src="https://raw.githubusercontent.com/unimonkiez/react-cordova-boilerplate/gh-pages/resources/demo.jpg" width="300" />](http://unimonkiez.github.io/react-cordova-boilerplate/)
 
 <img src="https://raw.githubusercontent.com/unimonkiez/react-cordova-boilerplate/gh-pages/resources/demo.gif" width="300" />
-
-# Notice
-##### This is a prerelease version (*2.0.0*) of the boilerplate supporting some new features and webpack 2.
-As of right now some testing features are missing , please be patient and help out :smile:.
-You can always use latest version [here (1.3.0)](https://github.com/unimonkiez/react-cordova-boilerplate/tree/6f8ef8bc9b36bdcfb1dd6749c60064bf87008e47).
 
 ## Why cordova  and React
 Cordova is really simple to build cross platform mobile applications for any of your needs, this boilerplate provides a great starting point for your next react project, and can be used to maintain a website and mobile application from same source code (any maybe transitioning later to react-native)

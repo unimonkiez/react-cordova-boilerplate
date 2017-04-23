@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import customFont from 'src/style/custom-font.scss';
-import auth from 'src/core/auth.js';
+import auth from 'src/common/auth.js';
 import * as CredentialsActions from 'src/actions/credentials-actions.js';
 
 class LoginComponent extends Component {

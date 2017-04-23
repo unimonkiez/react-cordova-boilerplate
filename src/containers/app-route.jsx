@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route, hashHistory as history } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import auth from 'src/core/auth.js';
+import auth from 'src/common/auth.js';
 import * as CredentialsActions from 'src/actions/credentials-actions.js';
 import Login from './login.jsx';
 import TodoApp from './todo-app.jsx';

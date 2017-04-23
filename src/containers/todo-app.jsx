@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TodoActions from 'src/actions/todo-actions.js';
 import * as CredentialsActions from 'src/actions/credentials-actions.js';
-import auth from 'src/core/auth.js';
+import auth from 'src/common/auth.js';
 import Header from 'src/components/header.jsx';
 import MainSection from 'src/components/main-section.jsx';
 import todoStyle from 'src/style/todo-style.scss';

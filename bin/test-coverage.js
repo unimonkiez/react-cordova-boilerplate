@@ -1,12 +1,13 @@
-const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
 
-const nycRcPath = path.join(process.cwd(), '.nycrc');
+const coverageRelativePath = process.cwd();
+const coveragePaths = [
+  path.join(__dirname, '..', 'src')
+];
+
 const nycRc = {
-  include: [
-    'src'
-  ],
+  include: coveragePaths.map(coveragePath => path.relative(coverageRelativePath, coveragePath)),
   extension: [
     '.jsx'
   ],
@@ -18,12 +19,13 @@ const nycRc = {
   instrument: false
 };
 
-// Write .nycrc file temporarly because the command-line tool needs it
-fs.writeFileSync(nycRcPath, JSON.stringify(nycRc, null, 2));
-process.on('exit', () => fs.unlinkSync(nycRcPath));
-process.on('SIGINT', () => process.exit());
+const nycCommand = 'nyc ' +
+nycRc.reporter.map(report => `--reporter=${report}`).join(' ') + ' ' +
+nycRc.include.map(include => `--include=${include}`).join(' ') + ' ' +
+(nycRc.instrument ? '' : '--no-insturment') +
+'';
 
-const testProcess = spawn(`nyc node ${path.join(__dirname, 'test.js')} -coverage`, { shell: true, stdio: 'inherit' });
+const testProcess = spawn(`${nycCommand} node ${path.join(__dirname, 'test.js')} -coverage`, { shell: true, stdio: 'inherit' });
 testProcess.on('close', testCode => {
   process.exit(testCode);
 });

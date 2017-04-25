@@ -37,9 +37,6 @@ Cordova is really simple to build cross platform mobile applications for any of 
 - ```npm run build[:prod][:watch]``` - builds the project (single html file and single js file) as it does for development.
 - ```npm run test[:watch][:coverage]``` - runs Mocha testing, outputs result to console, `watch` options to watch files and test again after file modification, `coverage` option to generate coverage reports to `./coverage` folder (`index.html` is a usuful one!).
 
-## Troubleshooting
-- ```Node Sass could not find a binding for your current environment: OS X 64-bit with Node.js X.x``` If you get an error like this means you previously installed Node SASS in an older version of Node which no longer applies to you. To fix run ```npm rebuild node-sass```
-
 ## Build and run as application
 As you do with any cordova application, ```cordova build android```, ```cordova run android``` and more.
 
@@ -100,3 +97,7 @@ Advantages:
 * No globals - import style files and use the class (minifies signature - example ```.a``` instead of ```.customFont```)
 
 Sass style will be minified, bundled and included to the server rendered file.
+
+
+## Troubleshooting
+- ```Node Sass could not find a binding for your current environment: OS X 64-bit with Node.js X.x``` If you get an error like this means you previously installed Node SASS in an older version of Node which no longer applies to you. To fix run ```npm rebuild node-sass```

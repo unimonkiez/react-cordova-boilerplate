@@ -23,6 +23,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
     isSsr = false,
     isWebpackDevServer = false,
     isTest = false,
+    isCoverage = false,
     port,
     bail = false,
     globals = ({})
@@ -95,7 +96,18 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
       })
     ] : []),
     module: {
-      rules: [
+      rules: []
+      // Very important that "instrumention" will be before other loaders in array, otherwise fail (what?)
+      .concat(isCoverage ? [
+        {
+          test: /\.(js|jsx)$/,
+          include: coveragePaths,
+          loader: {
+            loader: 'istanbul-instrumenter-loader'
+          }
+        }
+      ] : [])
+      .concat([
         {
           test: /\.js$/,
           exclude: /node_modules/,
@@ -186,17 +198,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
             }
           ]
         }
-      ]
-      .concat(isTest ? [
-        {
-          test: /\.(js|jsx)$/,
-          include: coveragePaths,
-          enforce: 'post',
-          loader: {
-            loader: 'istanbul-instrumenter-loader'
-          }
-        }
-      ] : [])
+      ])
     },
     resolve: {
       modules: [

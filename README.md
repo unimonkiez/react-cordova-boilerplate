@@ -17,7 +17,7 @@ Cordova is really simple to build cross platform mobile applications for any of 
   * ES6
   * React (jsx)
   * Server rendering for initial page
-  * Style: Redium + SASS
+  * Style: Radium + SASS
 * React router
 * Testing
   * Mocha

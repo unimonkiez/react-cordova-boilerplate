@@ -17,7 +17,7 @@ class LoginComponent extends Component {
     };
   }
   componentDidMount() {
-    // Chnage 'isMountedAndCreatedByRouter' from false to true
+    // Change 'isMountedAndCreatedByRouter' from false to true
     // only when generated from router for the first time.
     // For animation effect
     if (this.props.route !== undefined) {

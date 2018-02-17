@@ -10,7 +10,7 @@
 
 ## Why cordova  and React
 Cordova is really simple to build cross platform mobile applications for any of your needs, this boilerplate provides a great starting point for your next react project, and can be used to maintain a website and mobile application from same source code (and maybe transitioning later to react-native).  
-**[I highly advise to check out my other boilerplate, which is similar in many ways but produces a native app.](https://github/unimonkiez/react-platformula-boilerplate)**
+**[I highly advise to check out my other boilerplate, which is similar in many ways but produces a native app.](https://github.com/unimonkiez/react-platformula-boilerplate)**
 
 ## Features
 * eslint
